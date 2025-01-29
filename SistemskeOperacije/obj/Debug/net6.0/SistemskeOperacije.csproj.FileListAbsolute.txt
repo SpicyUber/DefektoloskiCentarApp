@@ -1,0 +1,17 @@
+D:\Aleksa\Desktop\SEMINARPS\DefektoloskiCentarApp\SistemskeOperacije\bin\Debug\net6.0\SistemskeOperacije.deps.json
+D:\Aleksa\Desktop\SEMINARPS\DefektoloskiCentarApp\SistemskeOperacije\bin\Debug\net6.0\SistemskeOperacije.dll
+D:\Aleksa\Desktop\SEMINARPS\DefektoloskiCentarApp\SistemskeOperacije\bin\Debug\net6.0\SistemskeOperacije.pdb
+D:\Aleksa\Desktop\SEMINARPS\DefektoloskiCentarApp\SistemskeOperacije\bin\Debug\net6.0\Baza.dll
+D:\Aleksa\Desktop\SEMINARPS\DefektoloskiCentarApp\SistemskeOperacije\bin\Debug\net6.0\Baza.pdb
+D:\Aleksa\Desktop\SEMINARPS\DefektoloskiCentarApp\SistemskeOperacije\obj\Debug\net6.0\SistemskeOperacije.csproj.AssemblyReference.cache
+D:\Aleksa\Desktop\SEMINARPS\DefektoloskiCentarApp\SistemskeOperacije\obj\Debug\net6.0\SistemskeOperacije.GeneratedMSBuildEditorConfig.editorconfig
+D:\Aleksa\Desktop\SEMINARPS\DefektoloskiCentarApp\SistemskeOperacije\obj\Debug\net6.0\SistemskeOperacije.AssemblyInfoInputs.cache
+D:\Aleksa\Desktop\SEMINARPS\DefektoloskiCentarApp\SistemskeOperacije\obj\Debug\net6.0\SistemskeOperacije.AssemblyInfo.cs
+D:\Aleksa\Desktop\SEMINARPS\DefektoloskiCentarApp\SistemskeOperacije\obj\Debug\net6.0\SistemskeOperacije.csproj.CoreCompileInputs.cache
+D:\Aleksa\Desktop\SEMINARPS\DefektoloskiCentarApp\SistemskeOperacije\obj\Debug\net6.0\SistemskeOperacije.csproj.CopyComplete
+D:\Aleksa\Desktop\SEMINARPS\DefektoloskiCentarApp\SistemskeOperacije\obj\Debug\net6.0\SistemskeOperacije.dll
+D:\Aleksa\Desktop\SEMINARPS\DefektoloskiCentarApp\SistemskeOperacije\obj\Debug\net6.0\refint\SistemskeOperacije.dll
+D:\Aleksa\Desktop\SEMINARPS\DefektoloskiCentarApp\SistemskeOperacije\obj\Debug\net6.0\SistemskeOperacije.pdb
+D:\Aleksa\Desktop\SEMINARPS\DefektoloskiCentarApp\SistemskeOperacije\obj\Debug\net6.0\ref\SistemskeOperacije.dll
+D:\Aleksa\Desktop\SEMINARPS\DefektoloskiCentarApp\SistemskeOperacije\bin\Debug\net6.0\Domen.dll
+D:\Aleksa\Desktop\SEMINARPS\DefektoloskiCentarApp\SistemskeOperacije\bin\Debug\net6.0\Domen.pdb

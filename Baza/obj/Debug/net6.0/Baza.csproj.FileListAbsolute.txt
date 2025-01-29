@@ -1,0 +1,15 @@
+D:\Aleksa\Desktop\SEMINARPS\DefektoloskiCentarApp\Baza\bin\Debug\net6.0\Baza.deps.json
+D:\Aleksa\Desktop\SEMINARPS\DefektoloskiCentarApp\Baza\bin\Debug\net6.0\Baza.dll
+D:\Aleksa\Desktop\SEMINARPS\DefektoloskiCentarApp\Baza\bin\Debug\net6.0\Baza.pdb
+D:\Aleksa\Desktop\SEMINARPS\DefektoloskiCentarApp\Baza\obj\Debug\net6.0\Baza.csproj.AssemblyReference.cache
+D:\Aleksa\Desktop\SEMINARPS\DefektoloskiCentarApp\Baza\obj\Debug\net6.0\Baza.GeneratedMSBuildEditorConfig.editorconfig
+D:\Aleksa\Desktop\SEMINARPS\DefektoloskiCentarApp\Baza\obj\Debug\net6.0\Baza.AssemblyInfoInputs.cache
+D:\Aleksa\Desktop\SEMINARPS\DefektoloskiCentarApp\Baza\obj\Debug\net6.0\Baza.AssemblyInfo.cs
+D:\Aleksa\Desktop\SEMINARPS\DefektoloskiCentarApp\Baza\obj\Debug\net6.0\Baza.csproj.CoreCompileInputs.cache
+D:\Aleksa\Desktop\SEMINARPS\DefektoloskiCentarApp\Baza\obj\Debug\net6.0\Baza.dll
+D:\Aleksa\Desktop\SEMINARPS\DefektoloskiCentarApp\Baza\obj\Debug\net6.0\refint\Baza.dll
+D:\Aleksa\Desktop\SEMINARPS\DefektoloskiCentarApp\Baza\obj\Debug\net6.0\Baza.pdb
+D:\Aleksa\Desktop\SEMINARPS\DefektoloskiCentarApp\Baza\obj\Debug\net6.0\ref\Baza.dll
+D:\Aleksa\Desktop\SEMINARPS\DefektoloskiCentarApp\Baza\bin\Debug\net6.0\Domen.dll
+D:\Aleksa\Desktop\SEMINARPS\DefektoloskiCentarApp\Baza\bin\Debug\net6.0\Domen.pdb
+D:\Aleksa\Desktop\SEMINARPS\DefektoloskiCentarApp\Baza\obj\Debug\net6.0\Baza.csproj.CopyComplete

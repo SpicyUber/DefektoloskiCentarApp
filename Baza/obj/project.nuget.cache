@@ -1,0 +1,14 @@
+{
+  "version": 2,
+  "dgSpecHash": "N9gw+QYS96WQlsuczjRWHwJHbH2zh1/tIBiOq0G6ArDAbIbd6L91oYgeETFf2rwLgTIfPEO0TpyqwVADHVbqkg==",
+  "success": true,
+  "projectFilePath": "D:\\Aleksa\\Desktop\\SEMINARPS\\DefektoloskiCentarApp\\Baza\\Baza.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Aleksa\\.nuget\\packages\\runtime.native.system.data.sqlclient.sni\\4.4.0\\runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512",
+    "C:\\Users\\Aleksa\\.nuget\\packages\\runtime.win-arm64.runtime.native.system.data.sqlclient.sni\\4.4.0\\runtime.win-arm64.runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512",
+    "C:\\Users\\Aleksa\\.nuget\\packages\\runtime.win-x64.runtime.native.system.data.sqlclient.sni\\4.4.0\\runtime.win-x64.runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512",
+    "C:\\Users\\Aleksa\\.nuget\\packages\\runtime.win-x86.runtime.native.system.data.sqlclient.sni\\4.4.0\\runtime.win-x86.runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512",
+    "C:\\Users\\Aleksa\\.nuget\\packages\\system.data.sqlclient\\4.9.0\\system.data.sqlclient.4.9.0.nupkg.sha512"
+  ],
+  "logs": []
+}

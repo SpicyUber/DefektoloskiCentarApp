@@ -1,0 +1,12 @@
+D:\Aleksa\Desktop\SEMINARPS\DefektoloskiCentarApp\Komunikacija\obj\Debug\net6.0\Komunikacija.csproj.AssemblyReference.cache
+D:\Aleksa\Desktop\SEMINARPS\DefektoloskiCentarApp\Komunikacija\obj\Debug\net6.0\Komunikacija.GeneratedMSBuildEditorConfig.editorconfig
+D:\Aleksa\Desktop\SEMINARPS\DefektoloskiCentarApp\Komunikacija\obj\Debug\net6.0\Komunikacija.AssemblyInfoInputs.cache
+D:\Aleksa\Desktop\SEMINARPS\DefektoloskiCentarApp\Komunikacija\obj\Debug\net6.0\Komunikacija.AssemblyInfo.cs
+D:\Aleksa\Desktop\SEMINARPS\DefektoloskiCentarApp\Komunikacija\obj\Debug\net6.0\Komunikacija.csproj.CoreCompileInputs.cache
+D:\Aleksa\Desktop\SEMINARPS\DefektoloskiCentarApp\Komunikacija\bin\Debug\net6.0\Komunikacija.deps.json
+D:\Aleksa\Desktop\SEMINARPS\DefektoloskiCentarApp\Komunikacija\bin\Debug\net6.0\Komunikacija.dll
+D:\Aleksa\Desktop\SEMINARPS\DefektoloskiCentarApp\Komunikacija\bin\Debug\net6.0\Komunikacija.pdb
+D:\Aleksa\Desktop\SEMINARPS\DefektoloskiCentarApp\Komunikacija\obj\Debug\net6.0\Komunikacija.dll
+D:\Aleksa\Desktop\SEMINARPS\DefektoloskiCentarApp\Komunikacija\obj\Debug\net6.0\refint\Komunikacija.dll
+D:\Aleksa\Desktop\SEMINARPS\DefektoloskiCentarApp\Komunikacija\obj\Debug\net6.0\Komunikacija.pdb
+D:\Aleksa\Desktop\SEMINARPS\DefektoloskiCentarApp\Komunikacija\obj\Debug\net6.0\ref\Komunikacija.dll
