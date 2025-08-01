@@ -91,6 +91,7 @@ namespace Klijent
         {
             obrada.PosaljiZahtevServeru(new() { Objekat=dete, Operacija=Operacija.KreirajDete });
             Odgovor o = obrada.PrimiOdgovorOdServera();
+            if (o != null && o.Objekat != null) o.Objekat = obrada.VratiObjekatTipa<Dete>(o.Objekat);
             return o;
         }
 
@@ -161,6 +162,7 @@ namespace Klijent
         {
             obrada.PosaljiZahtevServeru(new() { Objekat = evidencijaTretmana, Operacija = Operacija.KreirajEvidencijaTretmana });
             Odgovor o = obrada.PrimiOdgovorOdServera();
+            if(o!=null && o.Objekat!= null) { o.Objekat = obrada.VratiObjekatTipa<Domen.EvidencijaTretmana>(o.Objekat); }
             return o;
         }
 
@@ -168,13 +170,14 @@ namespace Klijent
         {
             obrada.PosaljiZahtevServeru(new() { Objekat = defektoloskaUsluga, Operacija = Operacija.VratiListuEvidencijaTretmanaPoKriterijumuDefektoloskaUsluga });
             Odgovor o = obrada.PrimiOdgovorOdServera();
+           if(o!=null && o.Objekat!=null) o.Objekat = obrada.VratiObjekatTipa<List<Domen.EvidencijaTretmana>>(o.Objekat);
             return o;
         }
 
         public Odgovor PromeniEvidencijaTretmana(EvidencijaTretmana evidencijaTretmana)
         {
             obrada.PosaljiZahtevServeru(new() { Objekat = evidencijaTretmana, Operacija = Operacija.PromeniEvidencijaTretmana });
-
+            
             Odgovor o = obrada.PrimiOdgovorOdServera();
             return o;
         }

@@ -157,7 +157,7 @@ namespace Server
             try { 
           KreirajDete so = new();
             so.IzvrsiOperaciju(odo);
-            return new() { Objekat=null, Uspeh = true, Poruka="Sistem je zapamtio dete." };
+            return new() { Objekat=so.Rezultat, Uspeh = true, Poruka="Sistem je kreirao dete." };
             }catch(Exception e) { return new() { Objekat = null, Uspeh = false, Poruka = e.Message }; }
         }
 
@@ -391,7 +391,7 @@ namespace Server
             {
                 KreirajEvidencijaTretmana so = new();
                 so.IzvrsiOperaciju(odo);
-                return new() { Objekat = null, Uspeh = true, Poruka = "Sistem je zapamtio evidenciju tretmana." };
+                return new() { Objekat = so.Rezultat, Uspeh = true, Poruka = "Sistem je kreirao evidenciju tretmana." };
             }
             catch (Exception e) { return new() { Objekat = null, Uspeh = false, Poruka = e.Message }; }
 

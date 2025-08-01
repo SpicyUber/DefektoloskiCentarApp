@@ -48,6 +48,7 @@
             // 
             SpecijalizacijaDgv.AllowUserToAddRows = false;
             SpecijalizacijaDgv.AllowUserToDeleteRows = false;
+            SpecijalizacijaDgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             SpecijalizacijaDgv.BackgroundColor = Color.FromArgb(235, 235, 235);
             SpecijalizacijaDgv.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             SpecijalizacijaDgv.Dock = DockStyle.Fill;

@@ -34,6 +34,7 @@
             DefektologCmb = new ComboBox();
             UslugaCmb = new ComboBox();
             panel1 = new Panel();
+            label6 = new Label();
             DeteLbl = new Label();
             DefektologLbl = new Label();
             UslugaLbl = new Label();
@@ -60,7 +61,6 @@
             PromeniBtn = new Button();
             PretragaBtn = new Button();
             KreirajBtn = new Button();
-            label6 = new Label();
             ((System.ComponentModel.ISupportInitialize)EvidencijaTretmanaDgv).BeginInit();
             panel1.SuspendLayout();
             flowLayoutPanel1.SuspendLayout();
@@ -85,33 +85,33 @@
             // DeteCmb
             // 
             DeteCmb.BackColor = Color.FromArgb(211, 194, 214);
-            DeteCmb.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point);
+            DeteCmb.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             DeteCmb.FormattingEnabled = true;
-            DeteCmb.Location = new Point(391, 251);
+            DeteCmb.Location = new Point(368, 247);
             DeteCmb.Name = "DeteCmb";
-            DeteCmb.Size = new Size(121, 40);
+            DeteCmb.Size = new Size(144, 29);
             DeteCmb.TabIndex = 1;
             DeteCmb.SelectedIndexChanged += DeteCmb_SelectedIndexChanged;
             // 
             // DefektologCmb
             // 
             DefektologCmb.BackColor = Color.FromArgb(211, 194, 214);
-            DefektologCmb.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point);
+            DefektologCmb.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             DefektologCmb.FormattingEnabled = true;
-            DefektologCmb.Location = new Point(391, 345);
+            DefektologCmb.Location = new Point(368, 354);
             DefektologCmb.Name = "DefektologCmb";
-            DefektologCmb.Size = new Size(121, 40);
+            DefektologCmb.Size = new Size(144, 29);
             DefektologCmb.TabIndex = 2;
             DefektologCmb.SelectedIndexChanged += DefektologCmb_SelectedIndexChanged;
             // 
             // UslugaCmb
             // 
             UslugaCmb.BackColor = Color.FromArgb(211, 194, 214);
-            UslugaCmb.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point);
+            UslugaCmb.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             UslugaCmb.FormattingEnabled = true;
-            UslugaCmb.Location = new Point(391, 452);
+            UslugaCmb.Location = new Point(368, 452);
             UslugaCmb.Name = "UslugaCmb";
-            UslugaCmb.Size = new Size(121, 40);
+            UslugaCmb.Size = new Size(144, 29);
             UslugaCmb.TabIndex = 3;
             UslugaCmb.SelectedIndexChanged += UslugaCmb_SelectedIndexChanged;
             // 
@@ -151,11 +151,22 @@
             panel1.TabIndex = 4;
             panel1.Paint += panel1_Paint;
             // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Font = new Font("Roboto Cn", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            label6.Location = new Point(70, 166);
+            label6.Name = "label6";
+            label6.Size = new Size(37, 19);
+            label6.TabIndex = 26;
+            label6.Text = "Id: 0";
+            label6.Visible = false;
+            // 
             // DeteLbl
             // 
             DeteLbl.AutoSize = true;
             DeteLbl.Font = new Font("Roboto Cn", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            DeteLbl.Location = new Point(395, 215);
+            DeteLbl.Location = new Point(379, 215);
             DeteLbl.Name = "DeteLbl";
             DeteLbl.Size = new Size(37, 19);
             DeteLbl.TabIndex = 25;
@@ -165,7 +176,7 @@
             // 
             DefektologLbl.AutoSize = true;
             DefektologLbl.Font = new Font("Roboto Cn", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            DefektologLbl.Location = new Point(395, 308);
+            DefektologLbl.Location = new Point(379, 318);
             DefektologLbl.Name = "DefektologLbl";
             DefektologLbl.Size = new Size(78, 19);
             DefektologLbl.TabIndex = 24;
@@ -176,7 +187,7 @@
             // 
             UslugaLbl.AutoSize = true;
             UslugaLbl.Font = new Font("Roboto Cn", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            UslugaLbl.Location = new Point(395, 414);
+            UslugaLbl.Location = new Point(379, 414);
             UslugaLbl.Name = "UslugaLbl";
             UslugaLbl.Size = new Size(53, 19);
             UslugaLbl.TabIndex = 23;
@@ -440,17 +451,6 @@
             KreirajBtn.Text = "Kreiraj";
             KreirajBtn.UseVisualStyleBackColor = true;
             KreirajBtn.Click += KreirajBtn_Click;
-            // 
-            // label6
-            // 
-            label6.AutoSize = true;
-            label6.Font = new Font("Roboto Cn", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            label6.Location = new Point(70, 166);
-            label6.Name = "label6";
-            label6.Size = new Size(37, 19);
-            label6.TabIndex = 26;
-            label6.Text = "Id: 0";
-            label6.Visible = false;
             // 
             // EvidencijaTretmanaFrm
             // 

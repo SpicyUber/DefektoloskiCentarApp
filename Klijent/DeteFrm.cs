@@ -53,7 +53,9 @@ namespace Klijent
             if (odg != null && obavesti) MessageBox.Show(odg.Poruka);
             if (odg != null && odg.Uspeh == true && odg.Objekat != null) { deca = new BindingList<Domen.Dete>((List<Domen.Dete>)odg.Objekat); }
             DecaDgv.DataSource = null;
+
             DecaDgv.DataSource = deca;
+            DecaDgv.Columns["CmbValue"].Visible = false;
         }
 
         private void DeteFrm_Load(object sender, EventArgs e)
@@ -86,14 +88,12 @@ namespace Klijent
                     Kreiraj();
                     UcitajOdgovorneStaratelje();
                     UcitajDecu(false);
+
                     break;
                 case SK.OBRISI:
                     UcitajOdgovorneStaratelje();
                     Pretraga();
-                    if (deca == null || deca.Count == 0) { return; }
-                    DialogResult dg = MessageBox.Show("Da li želite da obrišete PRVO pronađeno dete na listi?", "Obriši Dete", MessageBoxButtons.YesNo);
-                    if (dg == DialogResult.Yes)
-                        Obrisi();
+
 
 
                     break;
@@ -106,6 +106,7 @@ namespace Klijent
 
         private void Obrisi()
         {
+            if (deca.Count == 0) { return; }
             MessageBox.Show(Konekcija.Instanca.ObrisiDete(deca[0]).Poruka);
             DecaKriterijumBtn.Enabled = true;
             KriterijumStarateljBtn.Enabled = true;
@@ -127,13 +128,19 @@ namespace Klijent
         {
             Domen.Dete dete;
             try { dete = new() { Ime = ImeTxt.Text, Prezime = PrezimeTxt.Text, Staratelj = new() { Id = (int)StarateljCmb.SelectedValue } }; } catch (Exception ex) { MessageBox.Show("Sistem ne može kreirati dete!"); return; }
-            DialogResult dr = MessageBox.Show("Sistem je kreirao dete, da li želite da ga sačuvate? ", "Kreiraj Dete", MessageBoxButtons.YesNo);
-            if (dr != DialogResult.Yes) return;
 
             Odgovor odg;
             odg = Konekcija.Instanca.KreirajDete(dete);
 
             if (odg != null) MessageBox.Show(odg.Poruka);
+            if (odg == null || odg.Objekat == null) return;
+            PromeniOperaciju(SK.PROMENI);
+            deteZaPromenu = (Dete)odg.Objekat;
+            Debug.WriteLine(deteZaPromenu.Ime + deteZaPromenu.Prezime + deteZaPromenu.Id + deteZaPromenu.Staratelj.Id);
+            PromeniIdLbl.Text = deteZaPromenu.Id.ToString();
+            PromeniImeTxt.Text = "";
+            PromeniPrezimeTxt.Text = "";
+
 
         }
 
@@ -152,6 +159,7 @@ namespace Klijent
             if (odg != null && odg.Uspeh == true && odg.Objekat != null) { deca = new BindingList<Domen.Dete>((List<Domen.Dete>)odg.Objekat); }
             DecaDgv.DataSource = null;
             DecaDgv.DataSource = deca;
+            DecaDgv.Columns["CmbValue"].Visible = false;
         }
 
         private void KreirajBtn_Click(object sender, EventArgs e)
@@ -162,7 +170,7 @@ namespace Klijent
         private void PromeniOperaciju(SK sk)
         {
             HelpBtn.Visible = (sk == SK.PROMENI);
-
+            PotvrdiBrisanjeBtn.Visible = (sk == SK.OBRISI);
             switch (sk)
             {
                 case SK.PRETRAGA:
@@ -197,7 +205,7 @@ namespace Klijent
 
                     DecaKriterijumBtn.Enabled = true;
                     KriterijumStarateljBtn.Enabled = true;
-                    KriterijumStarateljBtn.Checked = true;
+                    DecaKriterijumBtn.Checked = true;
                     ImeTxt.Enabled = DecaKriterijumBtn.Checked;
                     PrezimeTxt.Enabled = DecaKriterijumBtn.Checked;
                     StarateljCmb.Enabled = !DecaKriterijumBtn.Checked;
@@ -222,13 +230,32 @@ namespace Klijent
                     UcitajDecu(false);
                     break;
             }
-            trenutniSK = sk;
-            if (SK.PROMENI == trenutniSK) OperacijaBtn.Text = "PRETRAGA";
-            else
-                OperacijaBtn.Text = trenutniSK.ToString();
-            OperacijaLbl.Text = trenutniSK.ToString();
 
+
+
+            OperacijaLbl.Text = sk.ToString();
+            if (SK.PROMENI == sk || SK.OBRISI == sk) OperacijaBtn.Text = "PRETRAGA";
+            else
+                OperacijaBtn.Text = sk.ToString();
+            if (trenutniSK == SK.KREIRAJ && sk == SK.PROMENI)
+            {
+
+                OperacijaBtn.Visible = false;
+                HelpBtn.Visible = false; StarateljCmb.Visible = label1.Visible = label2.Visible = label4.Visible = KriterijumStarateljBtn.Visible = DecaKriterijumBtn.Visible = ImeTxt.Visible = PrezimeTxt.Visible = false;
+                OperacijaLbl.Text = "KREIRAJ";
+
+            }
+            else
+            {
+                OperacijaBtn.Visible = true;
+                StarateljCmb.Visible = label1.Visible = label2.Visible = label4.Visible = KriterijumStarateljBtn.Visible = DecaKriterijumBtn.Visible = ImeTxt.Visible = PrezimeTxt.Visible = true;
+
+
+            }
+
+            trenutniSK = sk;
             PromeniPnl.Visible = (SK.PROMENI == trenutniSK);
+            if (trenutniSK == SK.KREIRAJ) { IzvrsiSK(trenutniSK); }
         }
 
         private void OperacijaBtn_Click(object sender, EventArgs e)
@@ -281,6 +308,7 @@ namespace Klijent
             if (deteZaPromenu == null) { MessageBox.Show("Pomoć - Pokušajte da kliknete red sa leve strane ekrana"); return; }
             Odgovor odg = Konekcija.Instanca.PromeniDete(new() { Id = deteZaPromenu.Id, Ime = PromeniImeTxt.Text, Prezime = PromeniPrezimeTxt.Text, Staratelj = new() { Id = (int)StarateljCmb.SelectedValue } });
             if (odg != null) MessageBox.Show(odg.Poruka);
+            if (OperacijaLbl.Text == "KREIRAJ") PromeniOperaciju(SK.PRETRAGA);
         }
 
         private void DecaDgv_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
@@ -295,10 +323,30 @@ namespace Klijent
 
         private void DecaDgv_CellClick_1(object sender, DataGridViewCellEventArgs e)
         {
-            Debug.WriteLine("whoops" + trenutniSK);
+            if (OperacijaLbl.Text == "KREIRAJ") return;
+            Odgovor odg;
+            if (DecaDgv.SelectedRows.Count > 0 && trenutniSK != SK.PROMENI)
+            {
+                odg = Konekcija.Instanca.PretraziDete((Domen.Dete)DecaDgv.SelectedRows[0].DataBoundItem);
+
+
+                if (odg != null && odg.Uspeh == true && odg.Objekat != null && ((List<Dete>)odg.Objekat).Count > 0) { deca = new BindingList<Domen.Dete>((List<Domen.Dete>)odg.Objekat); MessageBox.Show("Sistem je našao dete"); }
+                else
+                    MessageBox.Show("Sistem ne može da nađe dete");
+                DecaDgv.DataSource = null;
+                DecaDgv.DataSource = deca;
+                DecaDgv.Columns["CmbValue"].Visible = false;
+                return;
+            }
+
+
             if (trenutniSK != SK.PROMENI || DecaDgv.SelectedRows.Count < 1) { return; }
 
             deteZaPromenu = (Domen.Dete)DecaDgv.SelectedRows[0].DataBoundItem;
+            odg = Konekcija.Instanca.PretraziDete((Domen.Dete)DecaDgv.SelectedRows[0].DataBoundItem);
+            if (odg != null && odg.Uspeh == true && odg.Objekat != null && ((List<Dete>)odg.Objekat).Count > 0) { deca = new BindingList<Domen.Dete>((List<Domen.Dete>)odg.Objekat); MessageBox.Show("Sistem je našao dete"); }
+            else
+                MessageBox.Show("Sistem ne može da nađe dete");
             Debug.WriteLine(deteZaPromenu.Ime + deteZaPromenu.Prezime + deteZaPromenu.Id + deteZaPromenu.Staratelj.Id);
             PromeniIdLbl.Text = deteZaPromenu.Id.ToString();
             PromeniImeTxt.Text = deteZaPromenu.Ime;
@@ -319,6 +367,14 @@ namespace Klijent
         private void HelpBtn_Click(object sender, EventArgs e)
         {
             MessageBox.Show("Klikni na rezultat pretrage koji želis da promeniš, izmeni ga u donjem desnom uglu prozora, potom potvrdi promene.", "Pomoć", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void PotvrdiBrisanjeBtn_Click(object sender, EventArgs e)
+        {
+            if (deca == null || deca.Count == 0) { return; }
+            DialogResult dg = MessageBox.Show("Da li želite da obrišete PRVO pronađeno dete na listi?", "Obriši Dete", MessageBoxButtons.YesNo);
+            if (dg == DialogResult.Yes)
+                Obrisi();
         }
     }
 }

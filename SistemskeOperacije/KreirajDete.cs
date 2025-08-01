@@ -12,20 +12,22 @@ namespace SistemskeOperacije
 {
     public class KreirajDete : OpstaSistemskaOperacija
     {
+        public Dete Rezultat;
         protected override void IzvrsiPodoperaciju(IOpstiDomenskiObjekat odo)
         {
             try { 
             Dete dete = (Dete)odo;
            dete.Id= broker.Kreiraj(odo);
+                Rezultat = dete;
             }catch(Exception ex) { throw new Exception("Sistem ne može da kreira dete."); }
-            try
+            /*try
             {
                 broker.Promeni(odo);
             }
             catch (Exception ex)
             {
                 throw new Exception("Sistem ne može da zapamti dete.");
-            }
+            }*/
         }
     }
 }

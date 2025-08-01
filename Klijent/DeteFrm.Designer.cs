@@ -46,6 +46,7 @@
             PretragaPnl = new Panel();
             HelpBtn = new Button();
             PromeniPnl = new Panel();
+            PotvrdiBrisanjeBtn = new Button();
             PromeniIdLbl = new Label();
             PotvrdiPromeneBtn = new Button();
             PromeniStarateljCmb = new ComboBox();
@@ -63,6 +64,7 @@
             // 
             DecaDgv.AllowUserToAddRows = false;
             DecaDgv.AllowUserToDeleteRows = false;
+            DecaDgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             DecaDgv.BackgroundColor = Color.FromArgb(235, 235, 235);
             DecaDgv.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             DecaDgv.Dock = DockStyle.Fill;
@@ -239,6 +241,7 @@
             // PretragaPnl
             // 
             PretragaPnl.BackColor = Color.FromArgb(48, 204, 67);
+            PretragaPnl.Controls.Add(PotvrdiBrisanjeBtn);
             PretragaPnl.Controls.Add(HelpBtn);
             PretragaPnl.Controls.Add(PromeniPnl);
             PretragaPnl.Controls.Add(label4);
@@ -260,6 +263,7 @@
             // 
             // HelpBtn
             // 
+            HelpBtn.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             HelpBtn.BackColor = Color.FromArgb(211, 194, 214);
             HelpBtn.FlatStyle = FlatStyle.Flat;
             HelpBtn.Font = new Font("Roboto Cn", 12F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point);
@@ -285,6 +289,22 @@
             PromeniPnl.Size = new Size(468, 130);
             PromeniPnl.TabIndex = 11;
             PromeniPnl.Visible = false;
+            // 
+            // PotvrdiBrisanjeBtn
+            // 
+            PotvrdiBrisanjeBtn.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            PotvrdiBrisanjeBtn.BackColor = Color.FromArgb(211, 194, 214);
+            PotvrdiBrisanjeBtn.FlatStyle = FlatStyle.Flat;
+            PotvrdiBrisanjeBtn.Font = new Font("Roboto Cn", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            PotvrdiBrisanjeBtn.ForeColor = Color.Black;
+            PotvrdiBrisanjeBtn.Location = new Point(154, 564);
+            PotvrdiBrisanjeBtn.Name = "PotvrdiBrisanjeBtn";
+            PotvrdiBrisanjeBtn.Size = new Size(174, 28);
+            PotvrdiBrisanjeBtn.TabIndex = 15;
+            PotvrdiBrisanjeBtn.Text = "POTVRDI BRISANJE";
+            PotvrdiBrisanjeBtn.UseVisualStyleBackColor = false;
+            PotvrdiBrisanjeBtn.Visible = false;
+            PotvrdiBrisanjeBtn.Click += PotvrdiBrisanjeBtn_Click;
             // 
             // PromeniIdLbl
             // 
@@ -414,5 +434,6 @@
         private Button PotvrdiPromeneBtn;
         private Label PromeniIdLbl;
         private Button HelpBtn;
+        private Button PotvrdiBrisanjeBtn;
     }
 }
