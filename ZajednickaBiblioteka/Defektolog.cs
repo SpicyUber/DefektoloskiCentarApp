@@ -10,6 +10,7 @@ namespace Domen
 {
     public class Defektolog : IOpstiDomenskiObjekat
     {
+        
         //ako je Id manji od 1, obzirom da objekat sigurno nije iz baze mozemo ga tretirati drugacije.
         //obzirom da tada ne menjamo niti prikazujemo postojeci red u bazi, objekat najverovatnije koristi za pretrazivanje
         public int Id { get; set; }
@@ -23,6 +24,13 @@ namespace Domen
 
         public string KorisnickoIme { get; set; }
 
+        public string CmbValue { get { return Ime + " " + Prezime; } }
+
+
+        public override string ToString()
+        {
+            return Ime + " " + Prezime;
+        }
         public string AliasTabele()
         {
             return "def";
@@ -137,5 +145,12 @@ return l;
 
            return $"idDefektolog= {Id}";
         }
+
+        public string DefaultInsertVrednosti()
+        {
+            throw new NotImplementedException();
+        }
+
+     
     }
 }

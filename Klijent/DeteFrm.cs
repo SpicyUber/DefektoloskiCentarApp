@@ -17,9 +17,9 @@ namespace Klijent
 {
     public partial class DeteFrm : Form
     {
-        BindingList<Dete> deca;
+        BindingList<Domen.Dete> deca;
         private SK trenutniSK;
-        private Dete deteZaPromenu = null;
+        private Domen.Dete deteZaPromenu = null;
 
         internal enum SK
         {
@@ -33,7 +33,7 @@ namespace Klijent
             UcitajOdgovorneStaratelje();
             UcitajDecu(true);
             DecaKriterijumBtn.Checked = true;
-
+            HelpBtn.Visible = false;
         }
 
         private void UcitajOdgovorneStaratelje()
@@ -49,9 +49,9 @@ namespace Klijent
 
         private void UcitajDecu(bool obavesti)
         {
-            Odgovor odg = Konekcija.Instanca.PretraziDete(new Dete());
+            Odgovor odg = Konekcija.Instanca.PretraziDete(new Domen.Dete());
             if (odg != null && obavesti) MessageBox.Show(odg.Poruka);
-            if (odg != null && odg.Uspeh == true && odg.Objekat != null) { deca = new BindingList<Dete>((List<Dete>)odg.Objekat); }
+            if (odg != null && odg.Uspeh == true && odg.Objekat != null) { deca = new BindingList<Domen.Dete>((List<Domen.Dete>)odg.Objekat); }
             DecaDgv.DataSource = null;
             DecaDgv.DataSource = deca;
         }
@@ -125,7 +125,7 @@ namespace Klijent
 
         private void Kreiraj()
         {
-            Dete dete;
+            Domen.Dete dete;
             try { dete = new() { Ime = ImeTxt.Text, Prezime = PrezimeTxt.Text, Staratelj = new() { Id = (int)StarateljCmb.SelectedValue } }; } catch (Exception ex) { MessageBox.Show("Sistem ne može kreirati dete!"); return; }
             DialogResult dr = MessageBox.Show("Sistem je kreirao dete, da li želite da ga sačuvate? ", "Kreiraj Dete", MessageBoxButtons.YesNo);
             if (dr != DialogResult.Yes) return;
@@ -142,14 +142,14 @@ namespace Klijent
             Odgovor odg;
             if (DecaKriterijumBtn.Checked)
             {
-                odg = Konekcija.Instanca.PretraziDete(new Dete() { Id = 0, Ime = ImeTxt.Text, Prezime = PrezimeTxt.Text });
+                odg = Konekcija.Instanca.PretraziDete(new Domen.Dete() { Id = 0, Ime = ImeTxt.Text, Prezime = PrezimeTxt.Text });
             }
             else
             {
                 odg = Konekcija.Instanca.VratiListuDetePoKriterijumuOdgovorniStaratelj(new() { Id = (int)StarateljCmb.SelectedValue });
             }
             if (odg != null) MessageBox.Show(odg.Poruka);
-            if (odg != null && odg.Uspeh == true && odg.Objekat != null) { deca = new BindingList<Dete>((List<Dete>)odg.Objekat); }
+            if (odg != null && odg.Uspeh == true && odg.Objekat != null) { deca = new BindingList<Domen.Dete>((List<Domen.Dete>)odg.Objekat); }
             DecaDgv.DataSource = null;
             DecaDgv.DataSource = deca;
         }
@@ -161,6 +161,8 @@ namespace Klijent
 
         private void PromeniOperaciju(SK sk)
         {
+            HelpBtn.Visible = (sk == SK.PROMENI);
+
             switch (sk)
             {
                 case SK.PRETRAGA:
@@ -296,12 +298,27 @@ namespace Klijent
             Debug.WriteLine("whoops" + trenutniSK);
             if (trenutniSK != SK.PROMENI || DecaDgv.SelectedRows.Count < 1) { return; }
 
-            deteZaPromenu = (Dete)DecaDgv.SelectedRows[0].DataBoundItem;
+            deteZaPromenu = (Domen.Dete)DecaDgv.SelectedRows[0].DataBoundItem;
             Debug.WriteLine(deteZaPromenu.Ime + deteZaPromenu.Prezime + deteZaPromenu.Id + deteZaPromenu.Staratelj.Id);
             PromeniIdLbl.Text = deteZaPromenu.Id.ToString();
             PromeniImeTxt.Text = deteZaPromenu.Ime;
             PromeniPrezimeTxt.Text = deteZaPromenu.Prezime;
             PromeniStarateljCmb.SelectedItem = deteZaPromenu.Staratelj.Id;
+        }
+
+        private void DecaDgv_CellContentClick_2(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void KriterijumStarateljBtn_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void HelpBtn_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Klikni na rezultat pretrage koji želis da promeniš, izmeni ga u donjem desnom uglu prozora, potom potvrdi promene.", "Pomoć", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }

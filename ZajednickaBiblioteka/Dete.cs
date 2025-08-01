@@ -15,8 +15,13 @@ namespace Domen
         public string Prezime { get; set; }
 
         public OdgovorniStaratelj Staratelj { get; set; }
-         
-        
+
+        public override string ToString()
+        {
+            return Ime + " " + Prezime;
+        }
+
+        public string CmbValue { get { return Ime + " " + Prezime; } }
         public string AliasTabele()
         {
             return "det";
@@ -115,6 +120,15 @@ namespace Domen
         private string WhereUslovNadjiPostojeci()
         {
             return $"idDete={Id}";
+        }
+
+        public string DefaultInsertVrednosti()
+        {
+            string defaultIme = "",defaultPrezime="";
+            string defaultStarateljId = "(SELECT MIN(idOdgovorniStaratelj) FROM odgovornistaratelj)";
+            
+
+            return $"\'{defaultIme}\',\'{defaultPrezime}\',{defaultStarateljId}";
         }
     }
 }

@@ -15,6 +15,8 @@ namespace Klijent
         private Konekcija() { }
         private static Konekcija instanca = null;
         public string KorisnickoIme = "";
+
+        public string Sifra = "";
         public static Konekcija Instanca {get{if(instanca==null)instanca=new(); return instanca;} }
 
         private Socket klijent;
@@ -40,7 +42,7 @@ namespace Klijent
         {
             obrada.PosaljiZahtevServeru(new() { Objekat = new Defektolog() { Id = 0, KorisnickoIme = korisnickoIme, Sifra = sifra }, Operacija = Operacija.PrijaviDefektolog });
             Odgovor o = obrada.PrimiOdgovorOdServera();
-            if (o.Uspeh == true) { KorisnickoIme = korisnickoIme; }
+            if (o.Uspeh == true) { KorisnickoIme = korisnickoIme; Sifra = sifra; }
             return o ;
             
         }
@@ -49,15 +51,31 @@ namespace Klijent
         {   
             obrada.PosaljiZahtevServeru(new() { Objekat = staratelj, Operacija = Operacija.VratiListuDetePoKriterijumuOdgovorniStaratelj });
             Odgovor o = obrada.PrimiOdgovorOdServera();
-            if (o.Objekat != null) { o.Objekat = obrada.VratiObjekatTipa<List<Dete>>(o.Objekat); }
+            if (o.Objekat != null) { o.Objekat = obrada.VratiObjekatTipa<List<Domen.Dete>>(o.Objekat); }
             return o;
         }
 
-        public Odgovor PretraziDete(Dete dete)
+        public Odgovor VratiListuEvidencijaTretmanaPoKriterijumuDete(Domen.Dete dete)
+        {
+            obrada.PosaljiZahtevServeru(new() { Objekat = dete, Operacija = Operacija.VratiListuEvidencijaTretmanaPoKriterijumuDete });
+            Odgovor o = obrada.PrimiOdgovorOdServera();
+            if (o.Objekat != null) { o.Objekat = obrada.VratiObjekatTipa<List<EvidencijaTretmana>>(o.Objekat); }
+            return o;
+        }
+
+        public Odgovor VratiListuEvidencijaTretmanaPoKriterijumuDefektolog(Defektolog defektolog)
+        {
+            obrada.PosaljiZahtevServeru(new() { Objekat = defektolog, Operacija = Operacija.VratiListuEvidencijaTretmanaPoKriterijumuDefektolog });
+            Odgovor o = obrada.PrimiOdgovorOdServera();
+            if (o.Objekat != null) { o.Objekat = obrada.VratiObjekatTipa<List<EvidencijaTretmana>>(o.Objekat); }
+            return o;
+        }
+
+        public Odgovor PretraziDete(Domen.Dete dete)
         {
             obrada.PosaljiZahtevServeru(new() { Objekat = dete, Operacija = Operacija.PretraziDete });
             Odgovor o= obrada.PrimiOdgovorOdServera();
-            if (o.Objekat != null) { o.Objekat = obrada.VratiObjekatTipa<List<Dete>>(o.Objekat); }
+            if (o.Objekat != null) { o.Objekat = obrada.VratiObjekatTipa<List<Domen.Dete>>(o.Objekat); }
             return o;
         }
 
@@ -69,20 +87,20 @@ namespace Klijent
             return o;
         }
 
-       public Odgovor KreirajDete(Dete dete)
+       public Odgovor KreirajDete(Domen.Dete dete)
         {
             obrada.PosaljiZahtevServeru(new() { Objekat=dete, Operacija=Operacija.KreirajDete });
             Odgovor o = obrada.PrimiOdgovorOdServera();
             return o;
         }
 
-        public Odgovor ObrisiDete(Dete dete)
+        public Odgovor ObrisiDete(Domen.Dete dete)
         {
             obrada.PosaljiZahtevServeru(new Zahtev() { Objekat = dete, Operacija = Operacija.ObrisiDete });
             return obrada.PrimiOdgovorOdServera();
         }
 
-        public Odgovor PromeniDete(Dete dete)
+        public Odgovor PromeniDete(Domen.Dete dete)
         {
             obrada.PosaljiZahtevServeru(new() { Objekat=dete,Operacija=Operacija.PromeniDete});
             return obrada.PrimiOdgovorOdServera();
@@ -101,6 +119,63 @@ namespace Klijent
             Odgovor o= obrada.PrimiOdgovorOdServera();
             if(o.Uspeh)
             o.Objekat = obrada.VratiObjekatTipa<List<Specijalizacija>>(o.Objekat);
+            return o;
+        }
+
+        public Odgovor PretraziEvidencijaTretmana( EvidencijaTretmana et)
+        {
+            obrada.PosaljiZahtevServeru(new() { Objekat = et, Operacija = Operacija.PretraziEvidencijaTretmana });
+            Odgovor o = obrada.PrimiOdgovorOdServera();
+            if(o.Uspeh)
+                o.Objekat = obrada.VratiObjekatTipa<List<EvidencijaTretmana>>(o.Objekat);
+            return o;
+        }
+
+        public Odgovor VratiListuSviDefektolog()
+        {
+            obrada.PosaljiZahtevServeru(new() { Operacija = Operacija.VratiListuSviDefektolog });
+             Odgovor o=  obrada.PrimiOdgovorOdServera();
+            if (o.Uspeh)
+                o.Objekat = obrada.VratiObjekatTipa<List<Defektolog>>(o.Objekat);
+            return o;
+        }
+
+        public Odgovor VratiListuSviDefektoloskaUsluga()
+        {
+            obrada.PosaljiZahtevServeru(new() { Operacija = Operacija.VratiListuSviDefektoloskaUsluga });
+            Odgovor o = obrada.PrimiOdgovorOdServera();
+            if (o.Uspeh)
+                o.Objekat = obrada.VratiObjekatTipa<List<DefektoloskaUsluga>>(o.Objekat);
+            return o;
+        }
+
+        public Odgovor Odjava()
+        {
+            obrada.PosaljiZahtevServeru(new() { Objekat = new Defektolog() { Id = 0, KorisnickoIme = this.KorisnickoIme, Sifra = this.Sifra }, Operacija = Operacija.OdjaviDefektolog });
+            Odgovor o = obrada.PrimiOdgovorOdServera();
+            
+            return o;
+        }
+
+        public Odgovor KreirajEvidencijaTretmana(EvidencijaTretmana evidencijaTretmana)
+        {
+            obrada.PosaljiZahtevServeru(new() { Objekat = evidencijaTretmana, Operacija = Operacija.KreirajEvidencijaTretmana });
+            Odgovor o = obrada.PrimiOdgovorOdServera();
+            return o;
+        }
+
+        public Odgovor VratiListuEvidencijaTretmanaPoKriterijumuDefektoloskaUsluga(DefektoloskaUsluga defektoloskaUsluga)
+        {
+            obrada.PosaljiZahtevServeru(new() { Objekat = defektoloskaUsluga, Operacija = Operacija.VratiListuEvidencijaTretmanaPoKriterijumuDefektoloskaUsluga });
+            Odgovor o = obrada.PrimiOdgovorOdServera();
+            return o;
+        }
+
+        public Odgovor PromeniEvidencijaTretmana(EvidencijaTretmana evidencijaTretmana)
+        {
+            obrada.PosaljiZahtevServeru(new() { Objekat = evidencijaTretmana, Operacija = Operacija.PromeniEvidencijaTretmana });
+
+            Odgovor o = obrada.PrimiOdgovorOdServera();
             return o;
         }
     }

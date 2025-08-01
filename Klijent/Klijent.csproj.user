@@ -4,6 +4,9 @@
     <Compile Update="DeteFrm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="EvidencijaTretmanaFrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="LoginFrm.cs">
       <SubType>Form</SubType>
     </Compile>

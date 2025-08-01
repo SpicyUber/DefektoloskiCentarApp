@@ -2,6 +2,7 @@
 using Komunikacija;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Net;
@@ -16,13 +17,15 @@ namespace Server
     {
         public Socket Soket;
         public bool ServerAktivan=false;
+        public List<Defektolog> ListaKorisnika=null;
        // public int BrojKlijenata = 0;
          
 
         public void Kreni()
         { if (ServerAktivan) return;
 
-            try { 
+            try {
+                ListaKorisnika = new List<Defektolog>();
             Soket = new(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             ServerAktivan = true;
             Soket.Bind(new IPEndPoint(IPAddress.Parse("127.0.0.1"), 4444));
@@ -70,7 +73,7 @@ namespace Server
             }
         }
 
-        public void Stani() {   Soket?.Close(); ServerAktivan = false; }
+        public void Stani() { ListaKorisnika = null;   Soket?.Close(); ServerAktivan = false; }
 
         public void IzvrsiOperaciju(Socket klijent)
         {
@@ -80,7 +83,7 @@ namespace Server
                 while (ServerAktivan)
                 {
                     Zahtev? z = obrada.PrimiZahtevOdKlijenta();
-                Debug.WriteLine("IZVRSIO OEPRACIJ" + "\n" +z);
+                Debug.WriteLine("IZVRSIO OEPRACIJU" + "\n" +z);
                 if (z == null) {  continue; }
 
                 obrada.PosaljiOdgovorKlijentu(IzborOperacije(z,obrada));
@@ -102,7 +105,8 @@ namespace Server
             {
                 case Operacija.PrijaviDefektolog:
                  //   Debug.WriteLine(z.Objekat+":z.Objekat!"+z.Objekat.GetType().ToString());
-                  o=  Kontroler.Instanca.Prijava(obrada.VratiObjekatTipa<Defektolog>(z.Objekat));
+                  o=  Kontroler.Instanca.Prijava(obrada.VratiObjekatTipa<Defektolog>(z.Objekat),ListaKorisnika);
+                       
                         break;
                     case Operacija.PretraziDete:
 
@@ -138,8 +142,36 @@ namespace Server
                     case Operacija.UbaciSpecijalizacija:
                         o = Kontroler.Instanca.UbaciSpecijalizacija(obrada.VratiObjekatTipa<Specijalizacija>(z.Objekat));
                         break;
+                    case Operacija.PretraziEvidencijaTretmana:
+                        o = Kontroler.Instanca.PretraziEvidencijaTretmana(obrada.VratiObjekatTipa<EvidencijaTretmana>(z.Objekat));
+                        break;
+                    case Operacija.VratiListuSviDefektolog:
+                        o = Kontroler.Instanca.VratiListuSviDefektolog();
+                        break;
+                    case Operacija.VratiListuSviDefektoloskaUsluga:
+                        o = Kontroler.Instanca.VratiListuSviDefektoloskaUsluga();
+                        break;
+                    case Operacija.VratiListuEvidencijaTretmanaPoKriterijumuDete:
+                        o = Kontroler.Instanca.VratiListuEvidencijaTretmanaPoKriterijumuDete(obrada.VratiObjekatTipa<Dete>(z.Objekat));
+                        break;
+                    case Operacija.VratiListuEvidencijaTretmanaPoKriterijumuDefektoloskaUsluga:
+                        o = Kontroler.Instanca.VratiListuEvidencijaTretmanaPoKriterijumuDefektoloskaUsluga(obrada.VratiObjekatTipa<DefektoloskaUsluga>(z.Objekat));
+                        break;
+                    case Operacija.VratiListuEvidencijaTretmanaPoKriterijumuDefektolog:
+                        o = Kontroler.Instanca.VratiListuEvidencijaTretmanaPoKriterijumuDefektolog(obrada.VratiObjekatTipa<Defektolog>(z.Objekat));
+                        break;
+                    case Operacija.KreirajEvidencijaTretmana:
+                        o = Kontroler.Instanca.KreirajEvidencijaTretmana(obrada.VratiObjekatTipa<EvidencijaTretmana>(z.Objekat));
+                            break;
+                    case Operacija.PromeniEvidencijaTretmana:
+                        o = Kontroler.Instanca.PromeniEvidencijaTretmana(obrada.VratiObjekatTipa<EvidencijaTretmana>(z.Objekat));
+                        break;
+                    case Operacija.OdjaviDefektolog:
+                        o = Kontroler.Instanca.Odjava(obrada.VratiObjekatTipa<Defektolog>(z.Objekat), ListaKorisnika);
+                        break;
+                    
 
-            }
+                }
             }catch(Exception e)
             {
 
@@ -148,5 +180,7 @@ namespace Server
 
             return o;
         }
+
+       
     }
 }

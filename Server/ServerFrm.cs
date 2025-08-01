@@ -1,3 +1,5 @@
+using Domen;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Net.Sockets;
 
@@ -17,6 +19,7 @@ namespace Server
             s = new Server();
             AzurirajStanje();
             Thread t1 = new(IzmeriStanje);
+         
             t1.Start();
         }
 
@@ -38,6 +41,7 @@ namespace Server
                     }
 
                     this?.Invoke((MethodInvoker)AzurirajStanje);
+                    Thread.Sleep(500);
                 }
             }
             catch (Exception e)
@@ -50,7 +54,10 @@ namespace Server
         private void AzurirajStanje()
         {
             StatusLbl.Text = (stanjeServera) ? "Status servera : AKTIVAN" : "Status servera : NIJE AKTIVAN";
+            KlijentiCmb.DataSource = null;
+            KlijentiCmb.DataSource = new BindingList<Defektolog>((s.ListaKorisnika==null)?new BindingList<Defektolog>():s.ListaKorisnika);
 
+            if (KlijentiCmb.DataSource != null) { KlijentiCmb.DisplayMember =  "KorisnickoIme";}
         }
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -97,6 +104,11 @@ namespace Server
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox1_Click_1(object sender, EventArgs e)
         {
 
         }

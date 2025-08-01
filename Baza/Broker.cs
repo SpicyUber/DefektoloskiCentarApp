@@ -48,6 +48,7 @@ namespace Baza
         {
             Command.CommandText = "SELECT " + odo.SelectVrednosti() + " FROM " + odo.ImeTabele();
             if (odo.JoinTabela() != null && odo.JoinTabela() != "") { Command.CommandText += " JOIN " + odo.JoinTabela() + " ON ( " + odo.JoinUslov() + " )"; }
+            Debug.WriteLine(Command.CommandText);
             SqlDataReader citac = Command.ExecuteReader();
 
             List<IOpstiDomenskiObjekat> list = odo.VratiListu(citac, true);
@@ -67,6 +68,15 @@ namespace Baza
 
             return list;
 
+        }
+
+        public int Kreiraj(IOpstiDomenskiObjekat odo)
+        {
+            Command.CommandText = $"INSERT INTO {odo.ImeTabele()} VALUES ({odo.DefaultInsertVrednosti()}) SELECT SCOPE_IDENTITY()";
+            Debug.WriteLine(Command.CommandText);
+            
+           return Convert.ToInt32(Command.ExecuteScalar());
+            
         }
 
         public void Ubaci(IOpstiDomenskiObjekat odo)
@@ -97,7 +107,7 @@ namespace Baza
             Debug.WriteLine(Command.CommandText);
             if (Command.ExecuteNonQuery() == 0)
             {
-                throw new Exception("Greška pri brisanju u bazi!");
+                throw new Exception("Greška pri promeni u bazi!");
             }
         }
 

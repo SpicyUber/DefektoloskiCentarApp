@@ -31,6 +31,8 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ServerFrm));
             KreniBtn = new Button();
             panel1 = new Panel();
+            KlijentiCmb = new ComboBox();
+            KlijentiLbl = new Label();
             StatusLbl = new Label();
             StaniBtn = new Button();
             pictureBox1 = new PictureBox();
@@ -63,6 +65,8 @@
             // 
             panel1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             panel1.BackColor = Color.Transparent;
+            panel1.Controls.Add(KlijentiCmb);
+            panel1.Controls.Add(KlijentiLbl);
             panel1.Controls.Add(StatusLbl);
             panel1.Controls.Add(StaniBtn);
             panel1.Controls.Add(KreniBtn);
@@ -72,6 +76,32 @@
             panel1.Size = new Size(808, 415);
             panel1.TabIndex = 1;
             panel1.Paint += panel1_Paint;
+            // 
+            // KlijentiCmb
+            // 
+            KlijentiCmb.Anchor = AnchorStyles.None;
+            KlijentiCmb.BackColor = Color.FromArgb(211, 194, 214);
+            KlijentiCmb.Font = new Font("Roboto Cn", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            KlijentiCmb.FormattingEnabled = true;
+            KlijentiCmb.Location = new Point(341, 350);
+            KlijentiCmb.Name = "KlijentiCmb";
+            KlijentiCmb.Size = new Size(121, 27);
+            KlijentiCmb.TabIndex = 6;
+            // 
+            // KlijentiLbl
+            // 
+            KlijentiLbl.Anchor = AnchorStyles.None;
+            KlijentiLbl.AutoSize = true;
+            KlijentiLbl.BackColor = Color.FromArgb(211, 194, 214);
+            KlijentiLbl.BorderStyle = BorderStyle.FixedSingle;
+            KlijentiLbl.FlatStyle = FlatStyle.Flat;
+            KlijentiLbl.Font = new Font("Roboto Cn", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            KlijentiLbl.ForeColor = Color.FromArgb(25, 25, 35);
+            KlijentiLbl.Location = new Point(341, 316);
+            KlijentiLbl.Name = "KlijentiLbl";
+            KlijentiLbl.Size = new Size(120, 21);
+            KlijentiLbl.TabIndex = 5;
+            KlijentiLbl.Text = "Povezani klijenti:";
             // 
             // StatusLbl
             // 
@@ -114,6 +144,7 @@
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox1.TabIndex = 4;
             pictureBox1.TabStop = false;
+            pictureBox1.Click += pictureBox1_Click_1;
             // 
             // DobrodosliLbl
             // 
@@ -186,5 +217,7 @@
         private Panel panel2;
         private PictureBox pictureBox2;
         private PictureBox pictureBox1;
+        private Label KlijentiLbl;
+        private ComboBox KlijentiCmb;
     }
 }

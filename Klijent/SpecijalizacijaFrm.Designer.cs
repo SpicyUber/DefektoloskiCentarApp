@@ -48,6 +48,7 @@
             // 
             SpecijalizacijaDgv.AllowUserToAddRows = false;
             SpecijalizacijaDgv.AllowUserToDeleteRows = false;
+            SpecijalizacijaDgv.BackgroundColor = Color.FromArgb(235, 235, 235);
             SpecijalizacijaDgv.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             SpecijalizacijaDgv.Dock = DockStyle.Fill;
             SpecijalizacijaDgv.Location = new Point(0, 0);
@@ -168,7 +169,7 @@
             Controls.Add(panel1);
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "SpecijalizacijaFrm";
-            Text = "SpecijalizacijaFrm";
+            Text = "Specijalizacija";
             WindowState = FormWindowState.Maximized;
             Load += SpecijalizacijaFrm_Load;
             ((System.ComponentModel.ISupportInitialize)SpecijalizacijaDgv).EndInit();

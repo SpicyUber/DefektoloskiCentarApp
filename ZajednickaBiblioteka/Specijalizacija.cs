@@ -103,5 +103,10 @@ namespace Domen
             }
             return whereString;
         }
+
+        public string DefaultInsertVrednosti()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

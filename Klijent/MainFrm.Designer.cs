@@ -124,6 +124,7 @@
             evidencijaTretmanaToolStripMenuItem.Name = "evidencijaTretmanaToolStripMenuItem";
             evidencijaTretmanaToolStripMenuItem.Size = new Size(178, 22);
             evidencijaTretmanaToolStripMenuItem.Text = "Evidencija tretmana";
+            evidencijaTretmanaToolStripMenuItem.Click += evidencijaTretmanaToolStripMenuItem_Click;
             // 
             // pružalacUslugeToolStripMenuItem
             // 
@@ -200,8 +201,10 @@
             Icon = (Icon)resources.GetObject("$this.Icon");
             MainMenuStrip = menuStrip1;
             Name = "MainFrm";
-            Text = "MainFrm";
+            Text = "Glavni Meni";
             WindowState = FormWindowState.Maximized;
+            FormClosing += MainFrm_FormClosing;
+            Load += MainFrm_Load;
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();

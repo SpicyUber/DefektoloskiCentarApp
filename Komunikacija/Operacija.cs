@@ -17,6 +17,15 @@ namespace Komunikacija
         ObrisiDete,
         PromeniDete,
         UbaciSpecijalizacija,
-        VratiListuSviSpecijalizacija
+        VratiListuSviSpecijalizacija,
+        PretraziEvidencijaTretmana,
+        VratiListuSviDefektolog,
+        VratiListuSviDefektoloskaUsluga,
+        OdjaviDefektolog,
+        VratiListuEvidencijaTretmanaPoKriterijumuDefektoloskaUsluga,
+        VratiListuEvidencijaTretmanaPoKriterijumuDete,
+        VratiListuEvidencijaTretmanaPoKriterijumuDefektolog,
+        KreirajEvidencijaTretmana,
+        PromeniEvidencijaTretmana
     }
 }

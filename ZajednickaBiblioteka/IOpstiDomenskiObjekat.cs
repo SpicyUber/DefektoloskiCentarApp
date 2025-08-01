@@ -14,6 +14,8 @@ namespace Domen
        public string SelectVrednosti();
         public string UpdateVrednosti();
         public string InsertVrednosti();
+
+        public string DefaultInsertVrednosti();
         public string JoinTabela();
         public string JoinUslov();
         public string WhereUslov();

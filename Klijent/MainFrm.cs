@@ -34,5 +34,22 @@ namespace Klijent
             SpecijalizacijaFrm specijalizacija = new();
             specijalizacija.Show();
         }
+
+        private void evidencijaTretmanaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            EvidencijaTretmanaFrm evidencija = new();
+            evidencija.Show();
+        }
+
+        private void MainFrm_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void MainFrm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+
+            MessageBox.Show("Doviđenja! " + Konekcija.Instanca.Odjava().Poruka);
+        }
     }
 }

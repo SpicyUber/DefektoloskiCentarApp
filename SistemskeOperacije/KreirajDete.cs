@@ -14,7 +14,18 @@ namespace SistemskeOperacije
     {
         protected override void IzvrsiPodoperaciju(IOpstiDomenskiObjekat odo)
         {
-            broker.Ubaci(odo);
+            try { 
+            Dete dete = (Dete)odo;
+           dete.Id= broker.Kreiraj(odo);
+            }catch(Exception ex) { throw new Exception("Sistem ne može da kreira dete."); }
+            try
+            {
+                broker.Promeni(odo);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Sistem ne može da zapamti dete.");
+            }
         }
     }
 }

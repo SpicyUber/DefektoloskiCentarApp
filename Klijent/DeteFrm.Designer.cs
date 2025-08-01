@@ -39,11 +39,12 @@
             OperacijaBtn = new Button();
             StarateljCmb = new ComboBox();
             flowLayoutPanel1 = new FlowLayoutPanel();
+            KreirajBtn = new Button();
             ObrisiBtn = new Button();
             PromeniBtn = new Button();
             PretragaBtn = new Button();
-            KreirajBtn = new Button();
             PretragaPnl = new Panel();
+            HelpBtn = new Button();
             PromeniPnl = new Panel();
             PromeniIdLbl = new Label();
             PotvrdiPromeneBtn = new Button();
@@ -75,6 +76,7 @@
             DecaDgv.Size = new Size(499, 728);
             DecaDgv.TabIndex = 0;
             DecaDgv.CellClick += DecaDgv_CellClick_1;
+            DecaDgv.CellContentClick += DecaDgv_CellContentClick_2;
             // 
             // DecaKriterijumBtn
             // 
@@ -102,6 +104,7 @@
             KriterijumStarateljBtn.TabStop = true;
             KriterijumStarateljBtn.Text = "Na osnovu staratelja";
             KriterijumStarateljBtn.UseVisualStyleBackColor = true;
+            KriterijumStarateljBtn.CheckedChanged += KriterijumStarateljBtn_CheckedChanged;
             // 
             // ImeTxt
             // 
@@ -185,6 +188,18 @@
             flowLayoutPanel1.Size = new Size(967, 41);
             flowLayoutPanel1.TabIndex = 9;
             // 
+            // KreirajBtn
+            // 
+            KreirajBtn.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            KreirajBtn.Font = new Font("Roboto Condensed Black", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            KreirajBtn.Location = new Point(861, 3);
+            KreirajBtn.Name = "KreirajBtn";
+            KreirajBtn.Size = new Size(103, 26);
+            KreirajBtn.TabIndex = 1;
+            KreirajBtn.Text = "Kreiraj";
+            KreirajBtn.UseVisualStyleBackColor = true;
+            KreirajBtn.Click += KreirajBtn_Click;
+            // 
             // ObrisiBtn
             // 
             ObrisiBtn.Anchor = AnchorStyles.Top | AnchorStyles.Right;
@@ -221,21 +236,10 @@
             PretragaBtn.UseVisualStyleBackColor = true;
             PretragaBtn.Click += PretragaBtn_Click;
             // 
-            // KreirajBtn
-            // 
-            KreirajBtn.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            KreirajBtn.Font = new Font("Roboto Condensed Black", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            KreirajBtn.Location = new Point(861, 3);
-            KreirajBtn.Name = "KreirajBtn";
-            KreirajBtn.Size = new Size(103, 26);
-            KreirajBtn.TabIndex = 1;
-            KreirajBtn.Text = "Kreiraj";
-            KreirajBtn.UseVisualStyleBackColor = true;
-            KreirajBtn.Click += KreirajBtn_Click;
-            // 
             // PretragaPnl
             // 
             PretragaPnl.BackColor = Color.FromArgb(48, 204, 67);
+            PretragaPnl.Controls.Add(HelpBtn);
             PretragaPnl.Controls.Add(PromeniPnl);
             PretragaPnl.Controls.Add(label4);
             PretragaPnl.Controls.Add(OperacijaLbl);
@@ -254,6 +258,19 @@
             PretragaPnl.TabIndex = 10;
             PretragaPnl.Paint += PretragaPnl_Paint;
             // 
+            // HelpBtn
+            // 
+            HelpBtn.BackColor = Color.FromArgb(211, 194, 214);
+            HelpBtn.FlatStyle = FlatStyle.Flat;
+            HelpBtn.Font = new Font("Roboto Cn", 12F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point);
+            HelpBtn.Location = new Point(428, 564);
+            HelpBtn.Name = "HelpBtn";
+            HelpBtn.Size = new Size(28, 28);
+            HelpBtn.TabIndex = 14;
+            HelpBtn.Text = "?";
+            HelpBtn.UseVisualStyleBackColor = false;
+            HelpBtn.Click += HelpBtn_Click;
+            // 
             // PromeniPnl
             // 
             PromeniPnl.BorderStyle = BorderStyle.FixedSingle;
@@ -263,9 +280,9 @@
             PromeniPnl.Controls.Add(PromeniPrezimeTxt);
             PromeniPnl.Controls.Add(PromeniImeTxt);
             PromeniPnl.Dock = DockStyle.Bottom;
-            PromeniPnl.Location = new Point(0, 634);
+            PromeniPnl.Location = new Point(0, 598);
             PromeniPnl.Name = "PromeniPnl";
-            PromeniPnl.Size = new Size(468, 94);
+            PromeniPnl.Size = new Size(468, 130);
             PromeniPnl.TabIndex = 11;
             PromeniPnl.Visible = false;
             // 
@@ -274,7 +291,7 @@
             PromeniIdLbl.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             PromeniIdLbl.AutoSize = true;
             PromeniIdLbl.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            PromeniIdLbl.Location = new Point(50, 15);
+            PromeniIdLbl.Location = new Point(52, 15);
             PromeniIdLbl.Name = "PromeniIdLbl";
             PromeniIdLbl.Size = new Size(23, 21);
             PromeniIdLbl.TabIndex = 13;
@@ -287,7 +304,7 @@
             PotvrdiPromeneBtn.FlatStyle = FlatStyle.Flat;
             PotvrdiPromeneBtn.Font = new Font("Roboto Cn", 12F, FontStyle.Bold, GraphicsUnit.Point);
             PotvrdiPromeneBtn.ForeColor = Color.Black;
-            PotvrdiPromeneBtn.Location = new Point(147, 59);
+            PotvrdiPromeneBtn.Location = new Point(149, 78);
             PotvrdiPromeneBtn.Name = "PotvrdiPromeneBtn";
             PotvrdiPromeneBtn.Size = new Size(174, 28);
             PotvrdiPromeneBtn.TabIndex = 12;
@@ -301,7 +318,7 @@
             PromeniStarateljCmb.BackColor = Color.FromArgb(211, 194, 214);
             PromeniStarateljCmb.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             PromeniStarateljCmb.FormattingEnabled = true;
-            PromeniStarateljCmb.Location = new Point(342, 12);
+            PromeniStarateljCmb.Location = new Point(344, 12);
             PromeniStarateljCmb.Name = "PromeniStarateljCmb";
             PromeniStarateljCmb.Size = new Size(102, 29);
             PromeniStarateljCmb.TabIndex = 12;
@@ -311,7 +328,7 @@
             PromeniPrezimeTxt.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             PromeniPrezimeTxt.BackColor = Color.FromArgb(211, 194, 214);
             PromeniPrezimeTxt.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            PromeniPrezimeTxt.Location = new Point(246, 12);
+            PromeniPrezimeTxt.Location = new Point(248, 12);
             PromeniPrezimeTxt.Name = "PromeniPrezimeTxt";
             PromeniPrezimeTxt.Size = new Size(80, 29);
             PromeniPrezimeTxt.TabIndex = 12;
@@ -321,7 +338,7 @@
             PromeniImeTxt.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             PromeniImeTxt.BackColor = Color.FromArgb(211, 194, 214);
             PromeniImeTxt.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            PromeniImeTxt.Location = new Point(147, 12);
+            PromeniImeTxt.Location = new Point(149, 12);
             PromeniImeTxt.Name = "PromeniImeTxt";
             PromeniImeTxt.Size = new Size(86, 29);
             PromeniImeTxt.TabIndex = 12;
@@ -359,7 +376,7 @@
             Controls.Add(flowLayoutPanel1);
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "DeteFrm";
-            Text = "DeteFrm";
+            Text = "Dete";
             WindowState = FormWindowState.Maximized;
             Load += DeteFrm_Load;
             ((System.ComponentModel.ISupportInitialize)DecaDgv).EndInit();
@@ -396,5 +413,6 @@
         private TextBox PromeniImeTxt;
         private Button PotvrdiPromeneBtn;
         private Label PromeniIdLbl;
+        private Button HelpBtn;
     }
 }
