@@ -31,3 +31,4 @@ D:\Aleksa\Desktop\SEMINARPS\DefektoloskiCentarApp\Klijent\obj\Debug\net6.0-windo
 D:\Aleksa\Desktop\SEMINARPS\DefektoloskiCentarApp\Klijent\obj\Debug\net6.0-windows\Klijent.DeteFrm.resources
 D:\Aleksa\Desktop\SEMINARPS\DefektoloskiCentarApp\Klijent\obj\Debug\net6.0-windows\Klijent.SpecijalizacijaFrm.resources
 D:\Aleksa\Desktop\SEMINARPS\DefektoloskiCentarApp\Klijent\obj\Debug\net6.0-windows\Klijent.EvidencijaTretmanaFrm.resources
+D:\Aleksa\Desktop\SEMINARPS\DefektoloskiCentarApp\Klijent\obj\Debug\net6.0-windows\Klijent.StavkeEvidencijeTretmanaFrm.resources

@@ -15,6 +15,8 @@ namespace Domen
         public string UpdateVrednosti();
         public string InsertVrednosti();
 
+        public string OrderUslov();
+
         public string DefaultInsertVrednosti();
         public string JoinTabela();
         public string JoinUslov();

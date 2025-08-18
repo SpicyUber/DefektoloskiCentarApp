@@ -130,5 +130,10 @@ namespace Domen
 
             return $"\'{defaultIme}\',\'{defaultPrezime}\',{defaultStarateljId}";
         }
+
+        public string OrderUslov()
+        {
+            return $"{ImeTabele()}.ime";
+        }
     }
 }

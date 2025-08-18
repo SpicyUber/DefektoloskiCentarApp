@@ -12,6 +12,16 @@ namespace SistemskeOperacije
         protected override void IzvrsiPodoperaciju(IOpstiDomenskiObjekat odo)
         {
             broker.Promeni(odo);
+            List<StavkaEvidencijeTretmana> stavke = ((EvidencijaTretmana)odo).StavkeEvidencijeTretmana;
+            if(broker.VratiSveSaUslovom(new StavkaEvidencijeTretmana() { IdEvidencije = ((EvidencijaTretmana)odo).Id }).Count>0)
+            broker.Obrisi(new StavkaEvidencijeTretmana() { IdEvidencije = ((EvidencijaTretmana)odo).Id });
+            foreach(StavkaEvidencijeTretmana stavka in stavke)
+            {
+                
+                    broker.Ubaci(stavka);
+                
+
+            }
         }
     }
 }

@@ -52,30 +52,71 @@ namespace Domen
 
         public List<IOpstiDomenskiObjekat> VratiListu(SqlDataReader citac, bool zatvoriCitac)
         {
-            List<IOpstiDomenskiObjekat> lista = new();
-            while (citac.Read())
-            {
-                lista.Add(new StavkaEvidencijeTretmana()
+            try {
+                List<IOpstiDomenskiObjekat> lista = new();
+                while (citac.Read())
                 {
-                    IdEvidencije = citac.GetInt32(0),
-                    Rb = citac.GetInt32(1),
-                    
-                    Usluga = new(){Id= citac.GetInt32(3) , Naziv = citac.GetString(5), CenaUDinarima = citac.GetInt32(6) },
-                     
-                });
-            }
-            if(zatvoriCitac)citac.Close();
-            return lista;
+                    lista.Add(new StavkaEvidencijeTretmana()
+                    {
+                        IdEvidencije = citac.GetInt32(0),
+                        Rb = citac.GetInt32(1),
+
+                        Usluga = new() { Id = citac.GetInt32(3), Naziv = citac.GetString(5), TrajanjeUSatima= citac.GetInt32(6), CenaUDinarima = citac.GetInt32(7) },
+
+                    });
+                }
+                if (zatvoriCitac) citac.Close();
+                return lista;
+            } catch (Exception ex) { if (citac != null) citac.Close(); throw ex; }
         }
 
         public string WhereUslov()
         {
-            return $"idEvidencijaTretmana = {IdEvidencije}";
+
+
+            string whereString = "";
+            int propBr = 0;
+            if (IdEvidencije != null && IdEvidencije>0)
+            {
+
+                whereString += $"{ImeTabele()}.idEvidencijaTretmana = {IdEvidencije}"; propBr++;
+            }
+            if (Rb != null && Rb>0)
+            {
+                if (propBr > 0) whereString += " AND ";
+                whereString += $"{ImeTabele()}.rb = {Rb}";
+                propBr++;
+            }
+
+            if (CenaUDinarima != null && CenaUDinarima > 0)
+            {
+                if (propBr > 0) whereString += " AND ";
+                whereString += $"{ImeTabele()}.CenaUDinarima = {CenaUDinarima}";
+                propBr++;
+            }
+
+            if(Usluga!=null && Usluga.Id > 0)
+            {
+                if (propBr > 0) whereString += " AND ";
+                whereString += $"{ImeTabele()}.idDefektoloskaUsluga = {Usluga.Id}";
+                
+            }
+
+            if (propBr == 0)
+            {
+                whereString = "1=1";
+            }
+            return whereString;
         }
 
         public string DefaultInsertVrednosti()
         {
             throw new NotImplementedException();
+        }
+
+        public string OrderUslov()
+        {
+            return "";
         }
     }
 }

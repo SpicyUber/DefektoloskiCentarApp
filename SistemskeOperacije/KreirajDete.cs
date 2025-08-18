@@ -19,6 +19,7 @@ namespace SistemskeOperacije
             Dete dete = (Dete)odo;
            dete.Id= broker.Kreiraj(odo);
                 Rezultat = dete;
+                
             }catch(Exception ex) { throw new Exception("Sistem ne može da kreira dete."); }
             /*try
             {

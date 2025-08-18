@@ -15,11 +15,21 @@ namespace SistemskeOperacije
         protected override void IzvrsiPodoperaciju(IOpstiDomenskiObjekat odo)
         {
             try{ EvidencijaTretmana evidencija = new();
-            broker.Command.CommandText = $"SELECT {evidencija.ImeTabele()}.* , {evidencija.JoinTabela()}.* , {evidencija.JoinTabela2()}.* FROM {evidencija.ImeTabele()} JOIN {evidencija.JoinTabela()} ON({evidencija.JoinUslov()}) JOIN {evidencija.JoinTabela2()} ON ({evidencija.JoinUslov2()} ) JOIN {evidencija.JoinTabela3()} ON ({evidencija.JoinUslov3()} ) WHERE {odo.WhereUslov()} ";
+            broker.Command.CommandText = $"SELECT {evidencija.ImeTabele()}.* , {evidencija.JoinTabela()}.* , {evidencija.JoinTabela2()}.* FROM {evidencija.ImeTabele()} JOIN {evidencija.JoinTabela()} ON({evidencija.JoinUslov()}) JOIN {evidencija.JoinTabela2()} ON ({evidencija.JoinUslov2()} ) JOIN {evidencija.JoinTabela3()} ON ({evidencija.JoinUslov3()} ) WHERE {odo.WhereUslov()} " + " ORDER BY " + evidencija.OrderUslov();
             Debug.WriteLine(broker.Command.CommandText);
             SqlDataReader citac = broker.Command.ExecuteReader();
                Rezultat = VratiUnikatneEvidencijeTretmana(evidencija.VratiListu(citac, true).Cast<EvidencijaTretmana>().ToList());
-                
+                if (Rezultat.Count != 0)
+                    foreach (EvidencijaTretmana et in Rezultat)
+                    {
+
+
+
+                        et.StavkeEvidencijeTretmana = broker.VratiSveSaUslovom(new StavkaEvidencijeTretmana() { IdEvidencije = et.Id }).Cast<StavkaEvidencijeTretmana>().ToList();
+
+
+
+                    }
                 broker.Command.Dispose();
         }catch(Exception ex) { broker.Command.Dispose(); throw ex; }
 }

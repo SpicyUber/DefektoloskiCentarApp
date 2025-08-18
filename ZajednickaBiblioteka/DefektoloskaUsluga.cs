@@ -22,6 +22,11 @@ namespace Domen
             return "du";
         }
 
+        public override string ToString()
+        {
+            return Naziv;
+        }
+
         public string ImeTabele()
         {
             return "defektoloskausluga";
@@ -100,7 +105,10 @@ namespace Domen
             }
             return whereString;
         }
-
+        public string OrderUslov()
+        {
+            return $"{ImeTabele()}.naziv";
+        }
         public string DefaultInsertVrednosti()
         {
             throw new NotImplementedException();

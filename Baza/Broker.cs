@@ -48,6 +48,7 @@ namespace Baza
         {
             Command.CommandText = "SELECT " + odo.SelectVrednosti() + " FROM " + odo.ImeTabele();
             if (odo.JoinTabela() != null && odo.JoinTabela() != "") { Command.CommandText += " JOIN " + odo.JoinTabela() + " ON ( " + odo.JoinUslov() + " )"; }
+            if (odo.OrderUslov().Length > 0) Command.CommandText += " ORDER BY " + odo.OrderUslov();
             Debug.WriteLine(Command.CommandText);
             SqlDataReader citac = Command.ExecuteReader();
 
@@ -59,8 +60,10 @@ namespace Baza
         public List<IOpstiDomenskiObjekat> VratiSveSaUslovom(IOpstiDomenskiObjekat odo)
         {
             Command.CommandText = "SELECT " + odo.SelectVrednosti() + " FROM " + odo.ImeTabele();
-            if (odo.JoinTabela() != null && odo.JoinTabela() != "") { Command.CommandText += " JOIN " + odo.JoinTabela() + " ON ( " + odo.JoinUslov() + " )"; }
+            if (odo.JoinTabela() != null && odo.JoinTabela() != "") { Command.CommandText += " JOIN " + odo.JoinTabela() + " ON ( " + odo.JoinUslov() + " ) "; }
+            
             Command.CommandText += " WHERE " + odo.WhereUslov();
+            if (odo.OrderUslov().Length > 0) Command.CommandText += " ORDER BY " + odo.OrderUslov();
             Debug.WriteLine(Command.CommandText);
             SqlDataReader citac = Command.ExecuteReader();
 

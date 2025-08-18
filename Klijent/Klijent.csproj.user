@@ -16,5 +16,8 @@
     <Compile Update="SpecijalizacijaFrm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="StavkeEvidencijeTretmanaFrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
   </ItemGroup>
 </Project>

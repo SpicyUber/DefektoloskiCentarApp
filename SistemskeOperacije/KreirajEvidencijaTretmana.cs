@@ -17,6 +17,7 @@ namespace SistemskeOperacije
                 EvidencijaTretmana evidencija = new();
                 evidencija.Id = broker.Kreiraj(odo);
                Rezultat = evidencija;
+                 
             }
             catch (Exception ex) { throw new Exception("Sistem ne može da kreira evidenciju tretmana."); }
           

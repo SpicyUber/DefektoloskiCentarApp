@@ -12,6 +12,7 @@ namespace SistemskeOperacije
         protected override void IzvrsiPodoperaciju(IOpstiDomenskiObjekat odo)
         {
            broker.Ubaci(odo);
+             
         }
     }
 }

@@ -22,11 +22,12 @@ namespace Domen
 
         //jedini izuzetak u pretrazivanju int vrednosti je ukupnaCenaUDinarima. obzirom da moze biti nula ako nisu jos dodate stavke, neutralna vrednost za pretrazivanje je -1
         private int ukupnaCenaUDinarima;
-        public int UkupnaCenaUDinarima { get { if (ukupnaCenaUDinarima < 1 && Id > 0) return 1; else return ukupnaCenaUDinarima; } set { ukupnaCenaUDinarima=value; } }
+        public int UkupnaCenaUDinarima { get { if (ukupnaCenaUDinarima < 0 && Id > 0) return 0; else return ukupnaCenaUDinarima; } set { ukupnaCenaUDinarima=value; } }
         public bool? TretmanJePlacen { get; set; }
         public Defektolog Defektolog { get; set; }
         public Dete Dete { get; set; }
 
+        public List<StavkaEvidencijeTretmana> StavkeEvidencijeTretmana { get; set; }
 
 
         public string AliasTabele()
@@ -103,7 +104,7 @@ namespace Domen
                 });;
 
             }
-            
+         
             if (zatvoriCitac) citac.Close();
             return lista;
         }
@@ -180,6 +181,11 @@ namespace Domen
 
 
             return $"GETDATE(),'24','0','0','0',(SELECT MIN(idDefektolog) FROM defektolog),(SELECT MIN(idDete) FROM dete)";
+        }
+
+        public string OrderUslov()
+        {
+            return $"{ImeTabele()}.datumTretmana DESC";
         }
     }
 }

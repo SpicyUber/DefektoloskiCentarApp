@@ -178,7 +178,7 @@ namespace Server
             try {
                 PromeniDete so = new();
                 so.IzvrsiOperaciju(odo);
-                return new() { Uspeh = true, Objekat = null, Poruka = "Sistem je našao dete!\nSistem je zapamtio dete!" };
+                return new() { Uspeh = true, Objekat = null, Poruka = "Sistem je zapamtio dete!" };
             }catch(Exception e) { return new() {Poruka="Sistem ne može da zapamti dete!", Uspeh=false, Objekat = null }; }
         }
 

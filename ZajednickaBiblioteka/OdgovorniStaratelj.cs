@@ -118,5 +118,10 @@ namespace Domen
         {
             throw new NotImplementedException();
         }
+
+        public string OrderUslov()
+        {
+            return $"{ImeTabele()}.ime";
+        }
     }
 }

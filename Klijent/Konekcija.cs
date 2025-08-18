@@ -127,8 +127,18 @@ namespace Klijent
         {
             obrada.PosaljiZahtevServeru(new() { Objekat = et, Operacija = Operacija.PretraziEvidencijaTretmana });
             Odgovor o = obrada.PrimiOdgovorOdServera();
-            if(o.Uspeh)
+            if (o.Uspeh)
+            {
                 o.Objekat = obrada.VratiObjekatTipa<List<EvidencijaTretmana>>(o.Objekat);
+                //if(o.Objekat!=null && ((List<EvidencijaTretmana>)o.Objekat).Count > 0)
+                //{
+                //    foreach(EvidencijaTretmana evidencija in (List<EvidencijaTretmana>)o.Objekat)
+                //    {
+                //      evidencija.StavkeEvidencijeTretmana=  obrada.VratiObjekatTipa<List<StavkaEvidencijeTretmana>>(evidencija.StavkeEvidencijeTretmana);
+                //    }
+                //}
+            
+            }
             return o;
         }
 

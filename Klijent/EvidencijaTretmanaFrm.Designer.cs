@@ -61,6 +61,7 @@
             PromeniBtn = new Button();
             PretragaBtn = new Button();
             KreirajBtn = new Button();
+            StavkeBtn = new Button();
             ((System.ComponentModel.ISupportInitialize)EvidencijaTretmanaDgv).BeginInit();
             panel1.SuspendLayout();
             flowLayoutPanel1.SuspendLayout();
@@ -70,14 +71,16 @@
             // 
             EvidencijaTretmanaDgv.AllowUserToAddRows = false;
             EvidencijaTretmanaDgv.AllowUserToDeleteRows = false;
-            EvidencijaTretmanaDgv.BackgroundColor = Color.FromArgb(235, 235, 235);
+            EvidencijaTretmanaDgv.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            EvidencijaTretmanaDgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            EvidencijaTretmanaDgv.BackgroundColor = SystemColors.Control;
+            EvidencijaTretmanaDgv.BorderStyle = BorderStyle.None;
             EvidencijaTretmanaDgv.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            EvidencijaTretmanaDgv.Dock = DockStyle.Fill;
             EvidencijaTretmanaDgv.Location = new Point(0, 0);
             EvidencijaTretmanaDgv.Name = "EvidencijaTretmanaDgv";
             EvidencijaTretmanaDgv.ReadOnly = true;
             EvidencijaTretmanaDgv.RowTemplate.Height = 25;
-            EvidencijaTretmanaDgv.Size = new Size(1075, 670);
+            EvidencijaTretmanaDgv.Size = new Size(515, 670);
             EvidencijaTretmanaDgv.TabIndex = 0;
             EvidencijaTretmanaDgv.CellClick += EvidencijaTretmanaDgv_CellClick;
             EvidencijaTretmanaDgv.CellContentClick += EvidencijaTretmanaDgv_CellContentClick;
@@ -145,9 +148,9 @@
             panel1.Controls.Add(DeteCmb);
             panel1.Controls.Add(DefektologCmb);
             panel1.Dock = DockStyle.Right;
-            panel1.Location = new Point(485, 0);
+            panel1.Location = new Point(515, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(590, 670);
+            panel1.Size = new Size(560, 670);
             panel1.TabIndex = 4;
             panel1.Paint += panel1_Paint;
             // 
@@ -409,18 +412,20 @@
             flowLayoutPanel1.Controls.Add(PromeniBtn);
             flowLayoutPanel1.Controls.Add(PretragaBtn);
             flowLayoutPanel1.Controls.Add(KreirajBtn);
+            flowLayoutPanel1.Controls.Add(StavkeBtn);
             flowLayoutPanel1.Dock = DockStyle.Bottom;
             flowLayoutPanel1.Location = new Point(0, 633);
             flowLayoutPanel1.Name = "flowLayoutPanel1";
-            flowLayoutPanel1.Padding = new Padding(64, 0, 64, 0);
-            flowLayoutPanel1.Size = new Size(485, 37);
+            flowLayoutPanel1.Padding = new Padding(32, 0, 32, 0);
+            flowLayoutPanel1.Size = new Size(515, 37);
             flowLayoutPanel1.TabIndex = 23;
             // 
             // PromeniBtn
             // 
             PromeniBtn.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             PromeniBtn.Font = new Font("Roboto Condensed Black", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            PromeniBtn.Location = new Point(67, 3);
+            PromeniBtn.Location = new Point(32, 3);
+            PromeniBtn.Margin = new Padding(0, 3, 3, 3);
             PromeniBtn.Name = "PromeniBtn";
             PromeniBtn.Size = new Size(107, 26);
             PromeniBtn.TabIndex = 22;
@@ -432,7 +437,7 @@
             // 
             PretragaBtn.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             PretragaBtn.Font = new Font("Roboto Condensed Black", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            PretragaBtn.Location = new Point(180, 3);
+            PretragaBtn.Location = new Point(145, 3);
             PretragaBtn.Name = "PretragaBtn";
             PretragaBtn.Size = new Size(107, 26);
             PretragaBtn.TabIndex = 24;
@@ -444,13 +449,26 @@
             // 
             KreirajBtn.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             KreirajBtn.Font = new Font("Roboto Condensed Black", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            KreirajBtn.Location = new Point(293, 3);
+            KreirajBtn.Location = new Point(258, 3);
             KreirajBtn.Name = "KreirajBtn";
             KreirajBtn.Size = new Size(107, 26);
             KreirajBtn.TabIndex = 21;
             KreirajBtn.Text = "Kreiraj";
             KreirajBtn.UseVisualStyleBackColor = true;
             KreirajBtn.Click += KreirajBtn_Click;
+            // 
+            // StavkeBtn
+            // 
+            StavkeBtn.BackColor = Color.FromArgb(177, 145, 182);
+            StavkeBtn.FlatStyle = FlatStyle.Flat;
+            StavkeBtn.Font = new Font("Roboto Condensed Black", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            StavkeBtn.Location = new Point(371, 3);
+            StavkeBtn.Name = "StavkeBtn";
+            StavkeBtn.Size = new Size(107, 25);
+            StavkeBtn.TabIndex = 25;
+            StavkeBtn.Text = "Stavke";
+            StavkeBtn.UseVisualStyleBackColor = false;
+            StavkeBtn.Click += StavkeBtn_Click;
             // 
             // EvidencijaTretmanaFrm
             // 
@@ -506,5 +524,6 @@
         private Label DefektologLbl;
         private Label DeteLbl;
         private Label label6;
+        private Button StavkeBtn;
     }
 }

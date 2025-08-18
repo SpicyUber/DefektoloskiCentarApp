@@ -25,6 +25,8 @@ namespace Klijent
         private enum SK { KREIRAJ, PRETRAGA, PROMENI }
 
         private int promenaIdCache = -1;
+        private EvidencijaTretmana promenaObjekatCache;
+
         public EvidencijaTretmanaFrm()
         {
             trenutniSK = SK.PRETRAGA;
@@ -89,7 +91,7 @@ namespace Klijent
                     label6.Visible = true;
                     VremePocetkaTxt.Enabled = true;
                     OpisLbl.Text = "KREIRAJ EVIDENCIJU TRETMANA:";
-                    Kreiraj();
+
 
                     break;
                 case SK.PROMENI:
@@ -135,7 +137,8 @@ namespace Klijent
             UkupnaCenaLbl.Visible = (trenutniSK == SK.PRETRAGA);
             UslugaLbl.Visible = (trenutniSK == SK.PRETRAGA);
             UslugaCmb.Visible = (trenutniSK == SK.PRETRAGA);
-            OperacijaBtn.Enabled = (trenutniSK != SK.PRETRAGA);
+            OperacijaBtn.Enabled = (trenutniSK != SK.PROMENI);
+            if (trenutniSK == SK.KREIRAJ) Kreiraj();
         }
 
         private void IzvrsiOperaciju()
@@ -158,10 +161,10 @@ namespace Klijent
         private void Promeni()
         {
             if (!ValidacijaVrednosti()) return;
-            Odgovor odg = Konekcija.Instanca.PromeniEvidencijaTretmana(new EvidencijaTretmana() { Id = promenaIdCache, DatumTretmana = DatumPicker.Value, VremePocetkaTretmanaUCasovima = Convert.ToInt32(VremePocetkaTxt.Text), EvidencijaJeStornirana = VratiNullBullVrednost(StorniranCmb), TretmanJePlacen = VratiNullBullVrednost(PlacenaCmb), Defektolog = new() { Id = Convert.ToInt32(DefektologCmb.SelectedValue) }, Dete = new() { Id = Convert.ToInt32(DeteCmb.SelectedValue) } });
+            Odgovor odg = Konekcija.Instanca.PromeniEvidencijaTretmana(new EvidencijaTretmana() { Id = promenaIdCache, DatumTretmana = DatumPicker.Value, VremePocetkaTretmanaUCasovima = Convert.ToInt32(VremePocetkaTxt.Text), EvidencijaJeStornirana = VratiNullBullVrednost(StorniranCmb), TretmanJePlacen = VratiNullBullVrednost(PlacenaCmb), Defektolog = new() { Id = Convert.ToInt32(DefektologCmb.SelectedValue) }, Dete = new() { Id = Convert.ToInt32(DeteCmb.SelectedValue) }, StavkeEvidencijeTretmana = (promenaObjekatCache == null) ? new List<StavkaEvidencijeTretmana>() : promenaObjekatCache.StavkeEvidencijeTretmana });
             if (odg != null) { MessageBox.Show(odg.Poruka); }
             if (odg != null && odg.Uspeh) { VratiSveEvidencije(false); }
-            PromeniOperaciju(SK.PROMENI);
+            PromeniOperaciju(SK.PRETRAGA);
         }
 
         private void Kreiraj()
@@ -170,12 +173,13 @@ namespace Klijent
 
 
             Odgovor odg = Konekcija.Instanca.KreirajEvidencijaTretmana(new EvidencijaTretmana() { Defektolog = new(), Dete = new() });
-            if (odg != null) { MessageBox.Show(odg.Poruka); }
+            if (odg != null) { MessageBox.Show(odg.Poruka); if (!odg.Uspeh) { PromeniOperaciju(SK.PRETRAGA); return; } }
             if (odg.Objekat != null)
             {
-                EvidencijaTretmana ed = (EvidencijaTretmana)(odg.Objekat);
-                label6.Text = $"Id:{ed.Id}";
-                promenaIdCache = ed.Id; OpisLbl.Text = "UKUCAJ ŽELJENE VREDNOSTI:";
+                EvidencijaTretmana et = (EvidencijaTretmana)(odg.Objekat);
+                promenaObjekatCache = et;
+                label6.Text = $"Id:{et.Id}";
+                promenaIdCache = et.Id; OpisLbl.Text = "UKUCAJ ŽELJENE VREDNOSTI:";
             }
 
         }
@@ -456,8 +460,9 @@ namespace Klijent
         {
             label6.Text = $"Id:{ed.Id}";
             promenaIdCache = ed.Id;
+            promenaObjekatCache = ed;
             label6.Visible = true;
-            UkupnaCenaLbl.Text = ed.UkupnaCenaUDinarima + "";
+            UkupnaCenaTxt.Text = ed.UkupnaCenaUDinarima + "";
             VremePocetkaTxt.Text = ed.VremePocetkaTretmanaUCasovima + "";
             DeteCmb.SelectedValue = ed.Dete.Id;
             DefektologCmb.SelectedValue = ed.Defektolog.Id;
@@ -471,6 +476,31 @@ namespace Klijent
         private void EvidencijaTretmanaDgv_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
+        }
+
+        private void StavkeBtn_Click(object sender, EventArgs e)
+        {
+            if (EvidencijaTretmanaDgv.SelectedCells.Count == 0 && trenutniSK == SK.PRETRAGA)
+            {
+                MessageBox.Show("Označite red (evidenciju) u tabeli pre klika na dugme [Stavke]!");
+                return;
+            }
+            EvidencijaTretmana et = null;
+            if (SK.PRETRAGA == trenutniSK)
+            {
+                et = EvidencijaTretmanaDgv.SelectedCells[0].OwningRow.DataBoundItem as EvidencijaTretmana;
+            }
+            else { et = promenaObjekatCache; }
+            if (et != null)
+            {
+                if (et.StavkeEvidencijeTretmana == null) { et.StavkeEvidencijeTretmana = new(); }
+                StavkeEvidencijeTretmanaFrm StavkeFrm = new(et, usluge, trenutniSK != SK.PRETRAGA);
+                StavkeFrm.ShowDialog();
+
+
+
+            }
+            else { MessageBox.Show("Izaberite evidenciju za promenu pre klika na dugme [Stavke]!"); return; }
         }
     }
 }
