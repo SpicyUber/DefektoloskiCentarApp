@@ -468,7 +468,7 @@ namespace Klijent
             DefektologCmb.SelectedValue = ed.Defektolog.Id;
             StorniranCmb.SelectedItem = (ed.EvidencijaJeStornirana.Value ? "DA" : "NE");
             PlacenaCmb.SelectedItem = (ed.TretmanJePlacen.Value ? "DA" : "NE");
-
+            DatumPicker.Value = ed.DatumTretmana;
 
             OperacijaBtn.Enabled = true;
         }
