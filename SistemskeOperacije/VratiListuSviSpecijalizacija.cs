@@ -14,5 +14,10 @@ namespace SistemskeOperacije
         {
             Rezultat = broker.VratiSve(odo).Cast<Specijalizacija>().ToList();
         }
+
+        protected override bool Validacija(IOpstiDomenskiObjekat odo)
+        {
+            return (odo is Specijalizacija);
+        }
     }
 }

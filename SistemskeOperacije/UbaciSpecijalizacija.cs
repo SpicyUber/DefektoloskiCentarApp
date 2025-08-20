@@ -14,5 +14,10 @@ namespace SistemskeOperacije
            broker.Ubaci(odo);
              
         }
+
+        protected override bool Validacija(IOpstiDomenskiObjekat odo)
+        {
+            return (odo is Specijalizacija);
+        }
     }
 }

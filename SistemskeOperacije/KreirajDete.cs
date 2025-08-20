@@ -30,5 +30,10 @@ namespace SistemskeOperacije
                 throw new Exception("Sistem ne može da zapamti dete.");
             }*/
         }
+
+        protected override bool Validacija(IOpstiDomenskiObjekat odo)
+        {
+            return (odo is Dete);
+        }
     }
 }

@@ -14,5 +14,11 @@ namespace SistemskeOperacije
         {
             broker.Promeni(odo);
         }
+
+        protected override bool Validacija(IOpstiDomenskiObjekat odo)
+        {
+            return (odo is Dete && ((Dete)odo).Ime!=null && ((Dete)odo).Prezime != null && ((Dete)odo).Ime.Length <= 30 && ((Dete)odo).Prezime.Length <= 30 && ((Dete)odo).Id > 0 && ((Dete)odo).Staratelj.Id > 0);
+
+        }
     }
 }

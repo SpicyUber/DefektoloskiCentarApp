@@ -1,0 +1,24 @@
+﻿using Domen;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace SistemskeOperacije
+{
+    public class VratiListuSviDete : OpstaSistemskaOperacija
+    {
+        public List<Dete>? Rezultat { get; set; }
+        protected override void IzvrsiPodoperaciju(IOpstiDomenskiObjekat odo)
+        {
+            Rezultat = broker.VratiSveSaUslovom(new Dete()).Cast<Dete>().ToList();
+            if (Rezultat == null || Rezultat.Count == 0) { Rezultat = null; throw new Exception("Rezultat vraćanja liste sve dece je prazan."); }
+        }
+
+        protected override bool Validacija(IOpstiDomenskiObjekat odo)
+        {
+            return true;
+        }
+    }
+}

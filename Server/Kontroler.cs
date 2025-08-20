@@ -22,13 +22,13 @@ namespace Server
         {
             try {
             PrijaviDefektolog so = new PrijaviDefektolog();
-            so.IzvrsiOperaciju(odo);
-                if (so.Rezultat)
+            bool signal = so.IzvrsiOperaciju(odo);
+                if (signal)
                 {
                     DodajUListuKorisnika(odo,listaKorisnika);
                 }
-                return new() { Uspeh=so.Rezultat,
-          Objekat = null, Poruka = (so.Rezultat) ?("Upešna Prijava! Dobrodošli.") :("Neuspesna prijava! Pokušajte opet.") 
+                return new() { Uspeh=signal,
+                    Objekat = null, Poruka = (signal) ? ("Upešna Prijava! Dobrodošli.") :("Neuspesna prijava! Pokušajte opet.") 
           
           };
                
@@ -78,18 +78,47 @@ namespace Server
             try {
             PretraziDete so = new PretraziDete();
                 string poruka = "Sistem je našao decu po zadatim kriterijumima!!";
-                so.IzvrsiOperaciju(odo);
+              bool signal =  so.IzvrsiOperaciju(odo);
                 List<Dete> lista = so.Rezultat;
-                if (lista == null || lista.Count == 0) { poruka = "Nije pronađeno nijedno dete po kriterijumu!"; }
+                if (!signal) { poruka = "Nije pronađeno nijedno dete po kriterijumu!"; }
                 return new()
                 {
-                    Uspeh = true,
+                    Uspeh = signal,
                     Objekat = lista,
                     Poruka = poruka
 
                 };
 
             }catch(Exception e)
+            {
+                return new()
+                {
+                    Uspeh = false,
+                    Objekat = null,
+                    Poruka = "Greška na strani servera!" + e.Message
+                };
+            }
+        }
+
+        public Odgovor VratiListuSviDete(IOpstiDomenskiObjekat odo)
+        {
+            try
+            {
+                VratiListuSviDete so = new VratiListuSviDete();
+                string poruka = "Pronađena je lista svih objekata klase Dete!";
+                bool signal = so.IzvrsiOperaciju(null);
+                List<Dete> lista = so.Rezultat;
+                if (!signal) { poruka = "Nije pronađena lista svih objekata klase Dete!"; }
+                return new()
+                {
+                    Uspeh = signal,
+                    Objekat = lista,
+                    Poruka = poruka
+
+                };
+
+            }
+            catch (Exception e)
             {
                 return new()
                 {
@@ -107,12 +136,12 @@ namespace Server
                odo= new Dete() { Id = 0, Staratelj = (OdgovorniStaratelj)odo };
                 VratiListuDetePoKriterijumuOdgovorniStaratelj so = new VratiListuDetePoKriterijumuOdgovorniStaratelj();
                 string poruka = "Sistem je našao decu po zadatim kriterijumima!";
-                so.IzvrsiOperaciju(odo);
+               bool signal = so.IzvrsiOperaciju(odo);
                 List<Dete> lista = so.Rezultat;
-                if (lista == null || lista.Count == 0) { poruka = "Nije pronađeno nijedno dete po kriterijumu!"; }
+                if (!signal) { poruka = "Nije pronađeno nijedno dete po kriterijumu!"; }
                 return new()
                 {
-                    Uspeh = true,
+                    Uspeh = signal,
                     Objekat = lista,
                     Poruka = poruka
 
@@ -133,10 +162,10 @@ namespace Server
         public Odgovor VratiListuSviOdgovorniStaratelj()
         {
             try { VratiListuSviOdgovorniStaratelj so = new();
-                so.IzvrsiOperaciju(new OdgovorniStaratelj());
+               bool signal = so.IzvrsiOperaciju(new OdgovorniStaratelj());
                 return new()
                 {
-                    Uspeh = true,
+                    Uspeh = signal,
                     Objekat = so.Rezultat,
                     Poruka = "Uspešno vraćena lista svih odgovornih staratelja!"
                 };
@@ -156,29 +185,42 @@ namespace Server
         {
             try { 
           KreirajDete so = new();
-            so.IzvrsiOperaciju(odo);
-            return new() { Objekat=so.Rezultat, Uspeh = true, Poruka="Sistem je kreirao dete." };
+           bool signal = so.IzvrsiOperaciju(odo);
+            return new() { Objekat=so.Rezultat, Uspeh = signal, Poruka=(signal)? "Sistem je kreirao dete." : "Sistem ne može da kreira dete." };
             }catch(Exception e) { return new() { Objekat = null, Uspeh = false, Poruka = e.Message }; }
         }
+
+        public Odgovor PretraziDefektolog(IOpstiDomenskiObjekat odo)
+        {
+            try {
+
+                PretraziDefektolog so = new();
+                bool signal = so.IzvrsiOperaciju(odo);
+                return new()
+                { Objekat = so.Rezultat, Uspeh = signal, Poruka = signal ? "Pronađen je traženi objekat klase Defektolog" : "Nije pronađen traženi objekat klase Defektolog" };
+                }catch(Exception e) { return new() { Objekat = null, Uspeh = false, Poruka = e.Message }; }
+        }
+
+        
 
         public Odgovor ObrisiDete(IOpstiDomenskiObjekat odo)
         {
             try
             {
                 ObrisiDete so = new();
-                so.IzvrsiOperaciju(odo);
-                return new() { Objekat = null, Uspeh = true, Poruka = "Sistem je obrisao dete." };
+                bool signal = so.IzvrsiOperaciju(odo);
+                return new() { Objekat = null, Uspeh = signal, Poruka = (signal) ? "Sistem je obrisao dete." : "Sistem ne može da obriše dete." };
             }
             catch (Exception ex) { return new() { Objekat = null, Uspeh = false, Poruka = "Sistem ne može da obriše dete." }; }
         }
 
         public Odgovor PromeniDete(IOpstiDomenskiObjekat odo)
         {
-            if (odo == null || ((Dete)odo).Id<1) return new() { Objekat = null, Uspeh = false, Poruka = "Sistem ne može da zapamti dete!" };
+           
             try {
                 PromeniDete so = new();
-                so.IzvrsiOperaciju(odo);
-                return new() { Uspeh = true, Objekat = null, Poruka = "Sistem je zapamtio dete!" };
+               bool signal = so.IzvrsiOperaciju(odo);
+                return new() { Uspeh = signal, Objekat = null, Poruka = signal? "Sistem je zapamtio dete!":"Sistem ne može da zapamti dete!" };
             }catch(Exception e) { return new() {Poruka="Sistem ne može da zapamti dete!", Uspeh=false, Objekat = null }; }
         }
 
@@ -187,8 +229,8 @@ namespace Server
             try
             {
                 UbaciSpecijalizacija so = new();
-                so.IzvrsiOperaciju(odo);
-                return new() { Objekat = null, Uspeh = true, Poruka = "Sistem je zapamtio specijalizaciju." };
+              bool signal = so.IzvrsiOperaciju(odo);
+                return new() { Objekat = null, Uspeh = true, Poruka = signal? "Sistem je zapamtio specijalizaciju." : "Sistem ne može da zapamti specijalizaciju." };
             }
             catch (Exception e) { return new() { Objekat = null, Uspeh = false, Poruka = "Sistem ne može da zapamti specijalizaciju." }; }
 
@@ -200,12 +242,12 @@ namespace Server
             try
             {
                 VratiListuSviSpecijalizacija so = new();
-                so.IzvrsiOperaciju(new Specijalizacija());
+              bool signal =  so.IzvrsiOperaciju(new Specijalizacija());
                 return new()
                 {
-                    Uspeh = true,
+                    Uspeh = signal,
                     Objekat = so.Rezultat,
-                    Poruka = "Uspešno vraćena lista svih specijalizacija!"
+                    Poruka = signal ? "Uspešno vraćena lista svih specijalizacija!" : "Neuspešno vraćanje liste svih specijalizacija!"
                 };
             }
             catch (Exception e)
@@ -225,13 +267,13 @@ namespace Server
             try
             {
                 string poruka = "Sistem je našao evidencije tretmana po zadatim kriterijumima!";
-                PretraziEvidencijaTretmana so = new();
-                so.IzvrsiOperaciju(odo);
+                VratiListuEvidencijaTretmana so = new();
+              bool signal =  so.IzvrsiOperaciju(odo);
                 List<EvidencijaTretmana> lista = so.Rezultat;
-                if (lista == null || lista.Count == 0) { poruka = "Nije pronađena nijedna evidencija tretmana po kriterijumu!"; }
+                if (!signal) { poruka = "Nije pronađena nijedna evidencija tretmana po kriterijumu!"; }
                 return new()
                 {
-                    Uspeh = true,
+                    Uspeh = signal,
                     Objekat = lista,
                     Poruka = poruka
 
@@ -254,13 +296,13 @@ namespace Server
             try
             {
                 VratiListuSviDefektolog so = new();
-                so.IzvrsiOperaciju(new Defektolog());
+              bool signal =  so.IzvrsiOperaciju(new Defektolog());
                
-                return new() { Objekat = so.Rezultat, Uspeh = true, Poruka = "Uspešno vraćena lista svih defektologa!" };
+                return new() { Objekat = so.Rezultat, Uspeh = signal, Poruka = signal? "Uspešno vraćena lista svih defektologa!": "Neuspešno vraćanje liste svih defektologa!" };
 
 
 
-            }
+                }
             catch (Exception e)
             {
                 return new()
@@ -277,13 +319,13 @@ namespace Server
             try
             {
                 VratiListuSviDefektoloskaUsluga so = new();
-                so.IzvrsiOperaciju(new DefektoloskaUsluga());
+              bool signal =  so.IzvrsiOperaciju(new DefektoloskaUsluga());
 
-                return new() { Objekat = so.Rezultat, Uspeh = true, Poruka = "Uspešno vraćena lista svih defektoloških usluga!" };
+                return new() { Objekat = so.Rezultat, Uspeh = signal, Poruka = signal? "Uspešno vraćena lista svih defektoloških usluga!" : "Neuspešno vraćanje liste svih defektoloških usluga!" };
 
 
 
-            }
+                }
             catch (Exception e)
             {
                 return new()
@@ -300,16 +342,16 @@ namespace Server
             try
             {
                 PrijaviDefektolog so = new PrijaviDefektolog();
-                so.IzvrsiOperaciju(odo);
-                if (so.Rezultat)
+               bool signal = so.IzvrsiOperaciju(odo);
+                if (signal)
                 {
                     UkloniIzListeKorisnika(odo, listaKorisnika);
                 }
                 return new()
                 {
-                    Uspeh = so.Rezultat,
+                    Uspeh = signal,
                     Objekat = null,
-                    Poruka = (so.Rezultat) ? ("Upešna odjava!") : ("Neuspesna odjava! Pokušajte opet.")
+                    Poruka = (signal) ? ("Upešna odjava!") : ("Neuspesna odjava! Pokušajte opet.")
 
                 };
 
@@ -332,13 +374,13 @@ namespace Server
             try
             {
                 string poruka = "Sistem je našao evidencije tretmana po zadatim kriterijumima!";
-                PretraziEvidencijaTretmana so = new();
-                so.IzvrsiOperaciju(new EvidencijaTretmana() { DatumTretmana = DateTime.MinValue, EvidencijaJeStornirana = null, TretmanJePlacen = null, VremePocetkaTretmanaUCasovima = 0, UkupnaCenaUDinarima = -1, Dete = (Dete)odo, Defektolog = new() });
+                VratiListuEvidencijaTretmana so = new();
+               bool signal =  so.IzvrsiOperaciju(new EvidencijaTretmana() { DatumTretmana = DateTime.MinValue, EvidencijaJeStornirana = null, TretmanJePlacen = null, VremePocetkaTretmanaUCasovima = 0, UkupnaCenaUDinarima = -1, Dete = (Dete)odo, Defektolog = new() });
                 List<EvidencijaTretmana> lista = so.Rezultat;
-                if (lista == null || lista.Count == 0) { poruka = "Nije pronađena nijedna evidencija tretmana po kriterijumu!"; }
+                if (!signal) { poruka = "Nije pronađena nijedna evidencija tretmana po kriterijumu!"; }
                 return new()
                 {
-                    Uspeh = true,
+                    Uspeh = signal,
                     Objekat = lista,
                     Poruka = poruka
 
@@ -361,13 +403,13 @@ namespace Server
             try
             {
                 string poruka = "Sistem je našao evidencije tretmana po zadatim kriterijumima!";
-                PretraziEvidencijaTretmana so = new();
-                so.IzvrsiOperaciju(new EvidencijaTretmana() { DatumTretmana = DateTime.MinValue, EvidencijaJeStornirana = null, TretmanJePlacen = null, VremePocetkaTretmanaUCasovima = 0, UkupnaCenaUDinarima = -1, Dete= new Dete(), Defektolog = (Defektolog)odo });
+                VratiListuEvidencijaTretmana so = new();
+               bool signal =  so.IzvrsiOperaciju(new EvidencijaTretmana() { DatumTretmana = DateTime.MinValue, EvidencijaJeStornirana = null, TretmanJePlacen = null, VremePocetkaTretmanaUCasovima = 0, UkupnaCenaUDinarima = -1, Dete= new Dete(), Defektolog = (Defektolog)odo });
                 List<EvidencijaTretmana> lista = so.Rezultat;
-                if (lista == null || lista.Count == 0) { poruka = "Nije pronađena nijedna evidencija tretmana po kriterijumu!"; }
+                if (!signal) { poruka = "Nije pronađena nijedna evidencija tretmana po kriterijumu!"; }
                 return new()
                 {
-                    Uspeh = true,
+                    Uspeh = signal,
                     Objekat = lista,
                     Poruka = poruka
 
@@ -390,8 +432,8 @@ namespace Server
             try
             {
                 KreirajEvidencijaTretmana so = new();
-                so.IzvrsiOperaciju(odo);
-                return new() { Objekat = so.Rezultat, Uspeh = true, Poruka = "Sistem je kreirao evidenciju tretmana." };
+                bool signal = so.IzvrsiOperaciju(odo);
+                return new() { Objekat = so.Rezultat, Uspeh = signal, Poruka = signal? "Sistem je kreirao evidenciju tretmana.": "Sistem ne može da kreira evidenciju tretmana." };
             }
             catch (Exception e) { return new() { Objekat = null, Uspeh = false, Poruka = e.Message }; }
 
@@ -402,8 +444,8 @@ namespace Server
             try
             {
                 PromeniEvidencijaTretmana so = new();
-                so.IzvrsiOperaciju(odo);
-                return new() { Objekat = null, Uspeh = true, Poruka = "Sistem je zapamtio evidenciju tretmana." };
+             bool signal =  so.IzvrsiOperaciju(odo);
+                return new() { Objekat = null, Uspeh = signal, Poruka =signal?  "Sistem je zapamtio evidenciju tretmana.": "Sistem ne može da zapamti evidenciju tretmana." };
 
             }
             catch (Exception e)
@@ -417,13 +459,13 @@ namespace Server
             try
             {
                 string poruka = "Sistem je našao evidencije tretmana po zadatim kriterijumima!";
-                PretraziEvidencijaTretmanaPoKriterijumuDefektoloskaUsluga so = new();
-                so.IzvrsiOperaciju(odo);
+                VratiListuEvidencijaTretmanaPoKriterijumuDefektoloskaUsluga so = new();
+              bool signal =  so.IzvrsiOperaciju(odo);
                 List<EvidencijaTretmana> lista = so.Rezultat;
-                if (lista == null || lista.Count == 0) { poruka = "Nije pronađena nijedna evidencija tretmana po kriterijumu!"; }
+                if (!signal) { poruka = "Nije pronađena nijedna evidencija tretmana po kriterijumu!"; }
                 return new()
                 {
-                    Uspeh = true,
+                    Uspeh = signal,
                     Objekat = lista,
                     Poruka = poruka
 

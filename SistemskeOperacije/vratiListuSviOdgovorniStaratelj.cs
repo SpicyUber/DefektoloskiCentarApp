@@ -14,5 +14,10 @@ namespace SistemskeOperacije
         {
            Rezultat =  broker.VratiSve(odo).Cast<OdgovorniStaratelj>().ToList();
         }
+
+        protected override bool Validacija(IOpstiDomenskiObjekat odo)
+        {
+            return (odo is OdgovorniStaratelj);
+        }
     }
 }

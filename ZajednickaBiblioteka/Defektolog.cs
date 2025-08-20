@@ -136,8 +136,40 @@ return l;
 
         private string WhereUslovPrijava()
         {
-            return $"korisnickoIme = \'{((KorisnickoIme == null) ? "" : KorisnickoIme)}\' AND sifra = \'{((Sifra == null) ? "" : Sifra)}\' ";
+            string whereString = "";
+            int propBr = 0;
+            if (Ime != null && !Ime.Equals(""))
+            {
 
+                whereString += $"{ImeTabele()}.ime = \'{Ime}\'"; propBr++;
+            }
+            if (Prezime != null && !Prezime.Equals(""))
+            {
+                if (propBr > 0) whereString += " AND ";
+                whereString += $"{ImeTabele()}.prezime = \'{Prezime}\'";
+                propBr++;
+            }
+            if (KorisnickoIme != null && !KorisnickoIme.Equals(""))
+            {
+                if (propBr > 0) whereString += " AND ";
+                whereString += $"{ImeTabele()}.korisnickoIme = \'{KorisnickoIme}\'";
+                propBr++;
+            }
+            if (Sifra != null && !Sifra.Equals(""))
+            {
+                if (propBr > 0) whereString += " AND ";
+                whereString += $"{ImeTabele()}.sifra = \'{Sifra}\'";
+                propBr++;
+            }
+            if (BrojTelefona != null && !BrojTelefona.Equals(""))
+            {
+                if (propBr > 0) whereString += " AND ";
+                whereString += $"{ImeTabele()}.brojTelefona = \'{BrojTelefona}\'";
+                propBr++;
+            }
+
+
+            return whereString;
 
         }
         private string WhereUslovNadjiPostojeci()

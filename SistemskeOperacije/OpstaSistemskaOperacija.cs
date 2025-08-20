@@ -1,5 +1,6 @@
 ﻿using Baza;
 using Domen;
+using System.Runtime.InteropServices;
 using System.Security.Principal;
 
 namespace SistemskeOperacije
@@ -10,27 +11,37 @@ namespace SistemskeOperacije
 
         protected OpstaSistemskaOperacija() { broker = new(); }
 
-        public void IzvrsiOperaciju(IOpstiDomenskiObjekat odo)
+        public bool IzvrsiOperaciju(IOpstiDomenskiObjekat odo)
         {
+
+            bool signal = false;
+
             try
             {
                 broker.OtvoriVezu();
                 broker.PokreniTransakciju();
-                IzvrsiPodoperaciju(odo);
+                if (Validacija(odo))
+                    IzvrsiPodoperaciju(odo);
+                else throw new Exception("Neuspešna validacija!");
                 
                 broker.Commit();
+                signal = true;
             }
             catch (Exception)
             {
                 broker.Rollback();
-                throw;
+                signal = false;
             }
             finally
             {
                 broker.ZatvoriVezu();
+                
             }
+
+            return signal;
         }
 
+        protected abstract bool Validacija(IOpstiDomenskiObjekat odo);
         protected abstract void IzvrsiPodoperaciju(IOpstiDomenskiObjekat odo);
     }
 }

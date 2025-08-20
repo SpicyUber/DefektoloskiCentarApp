@@ -14,5 +14,10 @@ namespace SistemskeOperacije
         {
             Rezultat= broker.VratiSve(odo).Cast<DefektoloskaUsluga>().ToList();
         }
+
+        protected override bool Validacija(IOpstiDomenskiObjekat odo)
+        {
+            return (odo is DefektoloskaUsluga);
+        }
     }
 }
