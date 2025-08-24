@@ -12,7 +12,7 @@ namespace SistemskeOperacije
         public List<Dete>? Rezultat { get; set; }
         protected override void IzvrsiPodoperaciju(IOpstiDomenskiObjekat odo)
         {
-            Rezultat = broker.VratiSveSaUslovom(new Dete()).Cast<Dete>().ToList();
+            Rezultat = broker.VratiSve(new Dete()).Cast<Dete>().ToList();
             if (Rezultat == null || Rezultat.Count == 0) { Rezultat = null; throw new Exception("Rezultat vraćanja liste sve dece je prazan."); }
         }
 

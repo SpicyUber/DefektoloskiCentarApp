@@ -19,7 +19,9 @@ namespace SistemskeOperacije
 
         protected override bool Validacija(IOpstiDomenskiObjekat odo)
         {
-            return (odo is Defektolog && ((Defektolog)odo).KorisnickoIme!=null && ((Defektolog)odo).Sifra!=null && ((Defektolog)odo).Sifra.Length<=30 && ((Defektolog)odo).KorisnickoIme.Length <= 30 );
+            //return (odo is Defektolog && ((Defektolog)odo).KorisnickoIme!=null && ((Defektolog)odo).Sifra!=null && ((Defektolog)odo).Sifra.Length<=30 && ((Defektolog)odo).KorisnickoIme.Length <= 30 );
+            return true;
+        
         }
     }
 }
